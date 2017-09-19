@@ -76,10 +76,12 @@ namespace WebApplication4.Controllers
         }
         public ActionResult SaveSalesLog(SalesLog sl)
         {
-            ViewBag.p = "";
-            if (Session["cc"] != null)
+            try
             {
-
+                ViewBag.p = "";
+                if (Session["cc"] != null)
+                {
+                }
                 ViewBag.Message = Session["cc"];
                 string s = ViewBag.Message;
 
@@ -92,7 +94,8 @@ namespace WebApplication4.Controllers
                 GetData.SalesGet(sl, SqlQuery.SalesQuery(ID));
                 return RedirectToAction("Sales");
             }
-            else {
+            catch
+            {
 
                 return RedirectToAction("Index", "Contract", new { ex = "操作异常已退回首页请刷新重试" });
             }
@@ -100,11 +103,13 @@ namespace WebApplication4.Controllers
         }
         public ActionResult AddSalesLog()
         {
-            ViewBag.p = "";
-            if (Session["cc"] != null)
+            try
             {
-                ViewBag.Message = Session["cc"];
-
+                ViewBag.p = "";
+                if (Session["cc"] != null)
+                {
+                    ViewBag.Message = Session["cc"];
+                }
                 string s = ViewBag.Message;
                 Guid ID = new Guid(s);
                 ObservableCollection<Contract_Data> cd = SqlQuery.ContractDataQuery(ID);
@@ -115,9 +120,61 @@ namespace WebApplication4.Controllers
                 return View();
 
             }
-            else {
+           catch {
                 return RedirectToAction("Index", "Contract", new { ex = "操作异常已退回首页请刷新重试" });
             }
+
+        }
+        public ActionResult SalesModification()
+        {
+            try
+            {
+                ViewBag.p = "";
+                if (Session["cc"] != null)
+                {
+                    ViewBag.Message = Session["cc"];
+                }
+                string s = ViewBag.Message;
+                Guid ID = new Guid(s);
+                ObservableCollection<Contract_Data> cd = SqlQuery.ContractDataQuery(ID);
+                ViewBag.Contract_DataJson = JsonTools.ObjectToJson(cd);
+                ViewBag.logName = Request["logName"];
+                ViewBag.service= Request["service"];
+                ViewBag.log = Request["log"];
+                ViewBag.date = Request["date"];
+                string s9= Request["ID"];
+                Session["salesid"]= Request["ID"];
+                return View();
+            }
+            catch {
+                return RedirectToAction("Index", "Contract", new { ex = "操作异常已退回首页请刷新重试" });
+            }
+
+        }
+        public ActionResult SaveSalesChangeLog(SalesLog sl)
+        {
+            
+                ViewBag.p = "";
+                if (Session["cc"] != null)
+                {
+                }
+                ViewBag.Message = Session["cc"];
+                string s = ViewBag.Message;
+                ViewBag.p= Session["salesid"];
+                string sss = ViewBag.p;
+                Guid ID2 = new Guid(sss);
+                Guid ID = new Guid(s);
+                sl.ContractID = ID;
+                sl.ID = ID2;
+                
+                ObservableCollection<Contract_Data> cd = SqlQuery.Contract_DataByIDQuery(sl.ServiceID);
+              
+                sl.Service = cd[0].Service;
+                GetData.SalesChangeGet(sl, SqlQuery.SalesQuery(ID));
+                return RedirectToAction("Sales");
+           
+
+
         }
     }
 }

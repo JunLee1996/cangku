@@ -21,7 +21,7 @@
         <div class="row">
             <form role="form" action="saveAccountantLog" method="post">
                 <div class="form-group">
-                    <label class="control-label" for="txt_logName"><span style="color: red;">*</span>结算原因：</label>
+                    <label class="control-label" for="txt_logName"><span style="color: red;">*</span>结算说明：</label>
                     <input type="text" class="form-control" id="txt_logName" name="LogName" placeholder="请输入日志名" required />
                 </div>
                 <div class="form-group">
@@ -45,10 +45,7 @@
                         <input type="number" min="0" max="10000000000" step="0.01" class="form-control" id="txt_affirmIncomeAmount" name="AffirmIncomeAmount" placeholder="请输入确认收入金额" />
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label" for="txt_invoiceCount">已开票数量：</label>
-                    <input type="number" min="0" max="100000" class="form-control" id="txt_invoiceCount" name="InvoiceCount" placeholder="请输入已开票数量" />
-                </div>
+               
                 <div class="form-group">
                     <label class="control-label" for="txt_invoiceAmount">已开票金额（含税）：</label>
                     <div class="input-group">
@@ -87,19 +84,30 @@
         </div>
     </div>
 
-    <script src="~/Scripts/js/addSalesLog.js" type="text/javascript" charset="utf-8"></script>
+   
     <script src="~/Scripts/js/addContract.js" type="text/javascript" charset="utf-8"></script>
     <script src="~/Scripts/js/bootstrap/jquery.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="~/Scripts/js/bootstrap/bootstrap.js" type="text/javascript" charset="utf-8"></script>
     <script src="~/Scripts/js/webshim/polyfiller.js" type="text/javascript" charset="utf-8"></script>
+    <script src="~/Scripts/js/addAccountantLog.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
         var Contract_DataJson = "@ViewBag.Contract_DataJson";
-        var LogDatesJson= "@ViewBag.LogDatesJson"
+        var LogDatesJson = "@ViewBag.LogDatesJson";
+        var AccountantJson = "@ViewBag.AccountantJson";
+        var Service = "@ViewBag.Service";
+       
     </script>
     <script type="text/javascript">
 			webshim.activeLang('zh-CN');
 			webshims.polyfill('forms');
 			webshims.cfg.no$Switch = true;
+        $("#txt_services").change(function () {
+    for (var i = 0; i < Accountants.length; i++) {
+        if (Accountants[i].Service == $("#txt_services").val()) {
+            DoLog(Accountants[i]);
+        }
+    }
+});
     </script>
 </body>
 

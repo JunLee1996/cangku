@@ -95,7 +95,7 @@ function addLog(logName, service, date, name, ID) {
     var div_content = document.createElement("div");
     div_content.className = "cd-timeline-content";
     var h3 = document.createElement("h3");
-    h3.innerHTML = "施工原因：" + logName;
+    h3.innerHTML = "施工说明：" + logName;
     var p_service = document.createElement("p");
     p_service.innerHTML = "服务款项：" + service;
     var p_log = document.createElement("p");

@@ -14,7 +14,7 @@ namespace WebApplication4.Controllers
     public class ContractController : Controller
     {
        
-        // GET: MM
+        // GET: MM66
         public ActionResult AddContract()
         {
             return View();
@@ -91,7 +91,7 @@ namespace WebApplication4.Controllers
                     SqlQuery.insert(pd2);
                     SqlQuery.insert(att);
                 }
-                return RedirectToAction("Login");
+                return RedirectToAction("Index");
             }
             catch (Exception)
             {
@@ -295,6 +295,31 @@ namespace WebApplication4.Controllers
             ViewBag.SumNoShippedCount = owc[0].SumNoShippedCount;
             ViewBag.SumReserves = owc[0].SumReserves;
             ViewBag.SumShippedCount=owc[0].SumShippedCount;
+            
+            ObservableCollection<Stats> oss = SqlQuery.StatsQuery();
+            string[] cn = new string[oss.Count];
+            decimal[] ona=new decimal[oss.Count];
+            decimal[] oa= new decimal[oss.Count];
+            double[] otp= new double[oss.Count];
+            double[] ontp= new double[oss.Count];
+            double[] os= new double[oss.Count];
+            double[] ons=new double[oss.Count];
+            for (int i=0;i<oss.Count;i++) {
+                cn[i] = oss[i].ContractName;
+                ona[i] = oss[i].NoAmountCollection;
+                oa[i] = oss[i].SubAffirmIncomeAmount;
+                otp[i] = oss[i].TotalProduct;
+                ontp[i] = oss[i].NoTotalProduct;
+                os[i] = oss[i].ShippedCount;
+                ons[i] = oss[i].NoShippedCount;
+            }
+            ViewBag.ContractName= JsonTools.ObjectToJson(cn);
+            ViewBag.NoAmountCollection = JsonTools.ObjectToJson(ona);
+            ViewBag.SubAffirmIncomeAmount = JsonTools.ObjectToJson(oa);
+            ViewBag.TotalProduct = JsonTools.ObjectToJson(otp);
+            ViewBag.NoTotalProduct = JsonTools.ObjectToJson(ontp);
+            ViewBag.ShippedCount = JsonTools.ObjectToJson(os);
+            ViewBag.NoShippedCount = JsonTools.ObjectToJson(ons);
             return View();
         }
     }

@@ -21,7 +21,7 @@
         <div class="row">
             <form action="SaveSalesLog" method="post" role="form" >
                 <div class="form-group">
-                    <label class="control-label" for="txt_logName"><span style="color: red;">*</span>收款原因：</label>
+                    <label class="control-label" for="txt_logName"><span style="color: red;">*</span>收款说明：</label>
                     <input type="text" class="form-control" id="txt_logName" name="LogName" placeholder="" required />
                 </div>
                 <div class="form-group">
@@ -70,8 +70,9 @@
 			webshims.cfg.no$Switch = true;
     </script>
     <script  type="text/javascript">
-        var ss=@ViewBag.ss1;
-        var Contract_DataJson="@ViewBag.Contract_DataJson";
+        var s = "@ViewBag.service"
+        var ss="@ViewBag.ss1"
+        var Contract_DataJson = "@ViewBag.Contract_DataJson";
     </script>
     <script type="text/javascript">
       $(function(){

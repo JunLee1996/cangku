@@ -25,6 +25,7 @@ namespace WebApplication4.Controllers
                 string s = ViewBag.Message;
                 Guid ID = new Guid(s);
                 ObservableCollection<Accountant> oat = SqlQuery.AccountantQuery(ID);
+                Session["c"] = oat;
                 ObservableCollection<AccountantLog> oal = SqlQuery.AccountantLogQuery(ID);
                 ObservableCollection<ContractNameT> ct = SqlQuery.ContractVQuery(ID);
                 ObservableCollection<Sales> cd = SqlQuery.SalesQuery(ID);
@@ -84,47 +85,52 @@ namespace WebApplication4.Controllers
                 if (Session["cc"] != null)
                 {
                     ViewBag.Message = Session["cc"];
-                    
                 }
+                string AccountantJson = Request["AccountantJson"];
+                string Service = Request["Service"];
                 string s = ViewBag.Message;
                 Guid ID = new Guid(s);
                 ObservableCollection<Contract_Data> cd = SqlQuery.ContractDataQuery(ID);
+                ObservableCollection<Accountant> oat = SqlQuery.AccountantQuery(ID);
                 cd = Orderby.paiXu(cd);
+                ObservableCollection<ContractNameT> os = SqlQuery.ContractVQuery(ID);
+                ViewBag.ss1 = os[0].Contract_Amount;
                 ViewBag.Contract_DataJson = JsonTools.ObjectToJson(cd);
+                ViewBag.AccountantJson = JsonTools.ObjectToJson(oat);
+                ViewBag.Service = Service;
                 return View();
             }
                catch(Exception) {
                 return RedirectToAction("Index", "Contract", new { ex = "操作异常已退回首页请刷新重试" });
             }
-            
-            
-          
-          
         }
         public ActionResult saveAccountantLog(AccountantLog al)
         {
-            try {
+          
                 ViewBag.p = "";
                 if (Session["cc"] != null)
                 {
-                    ViewBag.Message = Session["cc"];
+                    ViewBag.Message2 = Session["cc"];
                 }
-                string s = ViewBag.Message;
+                ViewBag.Message = Session["c"];
+                Session.Remove("c");
+                ObservableCollection <Accountant> oc = ViewBag.Message;
+                Accountant at = new Accountant();
+                foreach (Accountant a in oc) {
+                    if (a.ServiceID==al.ServiceID) {
+                        at = a;
+                    }
+                }
+                string s = ViewBag.Message2;
                 Guid ID = new Guid(s);
                 al.ContractID = ID;
                 al.ID = Guid.NewGuid();
                 al.LogDate = DateTime.Now.ToString();
+                al.Subtotal = (Convert.ToDecimal(al.Material)+Convert.ToDecimal(al.worker)).ToString();
                 ObservableCollection<Contract_Data> cd = SqlQuery.Contract_DataByIDQuery(al.ServiceID);
-                ObservableCollection<Accountant> oac = SqlQuery.AccountantByServiceQuery(al.ServiceID);
                 al.Service = cd[0].Service;
-                al.Subtotal = al.worker + al.Material;
-                GetData.AccountantGet(al, oac);
+                GetData.AccountantGet(al, at);
                 return RedirectToAction("Accountant");
-            }
-            catch (Exception)
-            {
-                return RedirectToAction("Index", "Contract", new { ex = "操作异常已退回首页请刷新重试" });
-            }
         }
         public ActionResult AccountantLogAjaxTT()
         {

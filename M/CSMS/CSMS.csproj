@@ -195,17 +195,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\InvoicingController.cs" />
     <Compile Include="Controllers\SalesController.cs" />
-    <Compile Include="Help\GetData\Orderby.cs" />
-    <Compile Include="Help\GetData\GetData.cs" />
-    <Compile Include="Help\GetData\JsonTools.cs" />
-    <Compile Include="Help\GetData\SqlQuery.cs" />
+    <Compile Include="Controllers\SummationController.cs" />
+    <Compile Include="Helper\GetData\Orderby.cs" />
+    <Compile Include="Helper\GetData\GetData.cs" />
+    <Compile Include="Helper\GetData\JsonTools.cs" />
+    <Compile Include="Helper\GetData\SqlQuery.cs" />
     <Compile Include="Controllers\AccountantController.cs" />
     <Compile Include="Controllers\ProductionController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\WarehouseController.cs" />
     <Compile Include="Models\Model\Accountant.cs" />
     <Compile Include="Models\Model\AccountantLog.cs" />
+    <Compile Include="Models\Model\Invoicing.cs" />
     <Compile Include="Models\Model\ContractNameT.cs" />
     <Compile Include="Models\Model\Contract_Data.cs" />
     <Compile Include="Models\Model\MClass.cs" />
@@ -218,6 +221,7 @@
     <Compile Include="Models\Model\Sales.cs" />
     <Compile Include="Models\Model\SalesChart.cs" />
     <Compile Include="Models\Model\SalesLog.cs" />
+    <Compile Include="Models\Model\Stats.cs" />
     <Compile Include="Models\Model\Warehouse.cs" />
     <Compile Include="Models\Model\WarehouseChart.cs" />
     <Compile Include="Models\Model\WarehouseLog.cs" />
@@ -317,7 +321,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\js\accountant.js" />
     <Content Include="Scripts\js\accountantLog.js" />
+    <Content Include="Scripts\js\addAccountantLog.js" />
     <Content Include="Scripts\js\addContract.js" />
+    <Content Include="Scripts\js\addInvoicingLog.js" />
     <Content Include="Scripts\js\addProjectLog.js" />
     <Content Include="Scripts\js\addSalesLog.js" />
     <Content Include="Scripts\js\bootstrap\bootstrap.js" />
@@ -328,7 +334,8 @@
     <Content Include="Scripts\js\datepicker\picker.date.js" />
     <Content Include="Scripts\js\datepicker\picker.js" />
     <Content Include="Scripts\js\datepicker\zh_CN.js" />
-    <Content Include="Scripts\js\echart\echarts.common.min.js" />
+    <Content Include="Scripts\js\Invoicing.js" />
+    <Content Include="Scripts\js\mmenu\echart\echarts.common.min.js" />
     <Content Include="Scripts\js\main.js" />
     <Content Include="Scripts\js\mmenu\jquery.mmenu.all.js" />
     <Content Include="Scripts\js\production.js" />
@@ -336,6 +343,7 @@
     <Content Include="Scripts\js\projectLog.js" />
     <Content Include="Scripts\js\sales.js" />
     <Content Include="Scripts\js\stats.js" />
+    <Content Include="Scripts\js\Summation.js" />
     <Content Include="Scripts\js\timeline\modernizr.js" />
     <Content Include="Scripts\js\warehouse.js" />
     <Content Include="Scripts\js\webshim\polyfiller.js" />
@@ -526,6 +534,10 @@
     <Content Include="Views\Accountant\AddAccountantLog.cshtml" />
     <Content Include="Views\Sales\AddSalesLog.cshtml" />
     <Content Include="Views\Contract\AddContract.cshtml" />
+    <Content Include="Views\Sales\SalesModification.cshtml" />
+    <Content Include="Views\Invoicing\Invoicing.cshtml" />
+    <Content Include="Views\Invoicing\AddInvoicingLog.cshtml" />
+    <Content Include="Views\Summation\Summation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

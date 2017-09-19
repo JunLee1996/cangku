@@ -87,7 +87,7 @@ function addLog(logName, service, log, date, logDate, name) {
     var div_content = document.createElement("div");
     div_content.className = "cd-timeline-content";
     var h3 = document.createElement("h3");
-    h3.innerHTML = "收款原因:" + logName;
+    h3.innerHTML = "收款说明:" + logName;
     var p_service = document.createElement("p");
     p_service.innerHTML = "服务款项：" + service;
     var p_log = document.createElement("p");
@@ -97,10 +97,15 @@ function addLog(logName, service, log, date, logDate, name) {
     var span = document.createElement("span");
     span.className = "cd-date";
     span.innerHTML = logDate + " by " + name;
+    var a = document.createElement("a");
+    a.className = "cd-read-more";
+    a.href = " SalesModification?logName=" + logName + "&service=" + service + "&log=" + log + "&date=" + date+"&ID="+ID;
+    a.innerHTML = "修改"
     div_content.appendChild(h3);
     div_content.appendChild(p_service)
     div_content.appendChild(p_log);
     div_content.appendChild(p_date);
+    div_content.appendChild(a);
     div_content.appendChild(span);
     div_block.appendChild(div_content);
     logList.appendChild(div_block);

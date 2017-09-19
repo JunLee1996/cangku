@@ -41,5 +41,19 @@ body{
 	height: 300px;
 	margin-top: 10px;
 	padding: 10px;
-	
+}
+
+.content .glyphicon{
+	position: relative;
+	top: 30px;
+	left: 335px;
+	float: left;
+	font-size: 1.618em;
+	color: gray;
+	cursor: pointer;
+	z-index: 100;
+}
+
+.content .glyphicon:hover{
+	color: black;
 }

@@ -23,4 +23,5 @@ function fillService(serviceArr){
 		service.value = serviceArr[i].ID;
 		services.appendChild(service);
 	}
+	
 }

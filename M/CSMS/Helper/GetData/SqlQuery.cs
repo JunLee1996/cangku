@@ -47,6 +47,12 @@ namespace ContractStatementManagementSystem
             ObservableCollection<ContractNameT> ww = new ObservableCollection<ContractNameT>(Query<ContractNameT>(sql));
             return ww;
         }
+        public static ObservableCollection<string> ContractVQueryName(Guid id)
+        {
+            string sql = String.Format(@"SELECT ContractName FROM [ContractNameT] where ID='{0}'", id);
+            ObservableCollection<string> ww = new ObservableCollection<string>(Query<string>(sql));
+            return ww;
+        }
         public static ObservableCollection<ContractNameT> ContractVQueryByName(string name,int N)
         {
             string sql = String.Format(@"select * from(select row_number() over(order by G.[Contract_Date] desc) as rownum, * FROM (SELECT * FROM [ContractNameT] where ContractName  LIKE  N'%{0}%')as G) as r where r.rownum >{1} and rownum <={2}", name,N,N+20);
@@ -125,6 +131,13 @@ namespace ContractStatementManagementSystem
             ObservableCollection<SalesLog> ww = new ObservableCollection<SalesLog>(Query<SalesLog>(sql));
             return ww;
         }
+        public static ObservableCollection<SalesLog> SalesLogQueryByID(Guid id)
+
+        {
+            string sql = String.Format(@"select * FROM [SalesLog] where ID='{0}'", id);
+            ObservableCollection<SalesLog> ww = new ObservableCollection<SalesLog>(Query<SalesLog>(sql));
+            return ww;
+        }
         public static ObservableCollection<SalesLog> SalesLogQueryLz(int a,Guid ID)
 
         {
@@ -132,53 +145,60 @@ namespace ContractStatementManagementSystem
             ObservableCollection<SalesLog> ww = new ObservableCollection<SalesLog>(Query<SalesLog>(sql));
             return ww;
         }
-        public static ObservableCollection<decimal> NoAmountCollectionQuery()
+        //public static ObservableCollection<decimal> NoAmountCollectionQuery()
+
+        //{
+        //    string sql = "select NoAmountCollection from Sales";
+        //    ObservableCollection<decimal> ww = new ObservableCollection<decimal>(Query<decimal>(sql));
+        //    return ww;
+        //}
+        //public static ObservableCollection<decimal> SubAffirmIncomeAmountQuery()
+
+        //{
+        //    string sql = "select SubAffirmIncomeAmount from Sales";
+        //    ObservableCollection<decimal> ww = new ObservableCollection<decimal>(Query<decimal>(sql));
+        //    return ww;
+        //}
+        //public static ObservableCollection<double> TotalProductQuery()
+
+        //{
+        //    string sql = "select TotalProduct from Productioner";
+        //    ObservableCollection<double> ww = new ObservableCollection<double>(Query<double>(sql));
+        //    return ww;
+        //}
+        //public static ObservableCollection<double> NoTotalProductQuery()
+
+        //{
+        //    string sql = "select NoTotalProduct from Productioner";
+        //    ObservableCollection<double> ww = new ObservableCollection<double>(Query<double>(sql));
+        //    return ww;
+        //}
+        //public static ObservableCollection<double> ShippedCountQuery()
+
+        //{
+        //    string sql = "select ShippedCount from Warehouse";
+        //    ObservableCollection<double> ww = new ObservableCollection<double>(Query<double>(sql));
+        //    return ww;
+        //}
+        //public static ObservableCollection<double> NoShippedCountQuery()
+
+        //{
+        //    string sql = "select NoShippedCount from Warehouse";
+        //    ObservableCollection<double> ww = new ObservableCollection<double>(Query<double>(sql));
+        //    return ww;
+        //}
+        //public static ObservableCollection<double> ReservesQuery()
+
+        //{
+        //    string sql = "select Reserves from Warehouse";
+        //    ObservableCollection<double> ww = new ObservableCollection<double>(Query<double>(sql));
+        //    return ww;
+        //}
+        public static ObservableCollection<Stats> StatsQuery()
 
         {
-            string sql = "select NoAmountCollection from Sales";
-            ObservableCollection<decimal> ww = new ObservableCollection<decimal>(Query<decimal>(sql));
-            return ww;
-        }
-        public static ObservableCollection<decimal> SubAffirmIncomeAmountQuery()
-
-        {
-            string sql = "select SubAffirmIncomeAmount from Sales";
-            ObservableCollection<decimal> ww = new ObservableCollection<decimal>(Query<decimal>(sql));
-            return ww;
-        }
-        public static ObservableCollection<double> TotalProductQuery()
-
-        {
-            string sql = "select TotalProduct from Productioner";
-            ObservableCollection<double> ww = new ObservableCollection<double>(Query<double>(sql));
-            return ww;
-        }
-        public static ObservableCollection<double> NoTotalProductQuery()
-
-        {
-            string sql = "select NoTotalProduct from Productioner";
-            ObservableCollection<double> ww = new ObservableCollection<double>(Query<double>(sql));
-            return ww;
-        }
-        public static ObservableCollection<double> ShippedCountQuery()
-
-        {
-            string sql = "select ShippedCount from Warehouse";
-            ObservableCollection<double> ww = new ObservableCollection<double>(Query<double>(sql));
-            return ww;
-        }
-        public static ObservableCollection<double> NoShippedCountQuery()
-
-        {
-            string sql = "select NoShippedCount from Warehouse";
-            ObservableCollection<double> ww = new ObservableCollection<double>(Query<double>(sql));
-            return ww;
-        }
-        public static ObservableCollection<double> ReservesQuery()
-
-        {
-            string sql = "select Reserves from Warehouse";
-            ObservableCollection<double> ww = new ObservableCollection<double>(Query<double>(sql));
+            string sql = @"select CT.ContractName,S.NoAmountCollection,S.SubAffirmIncomeAmount,P.TotalProduct,P.NoTotalProduct,W.ShippedCount,W.NoShippedCount from ContractNameT as CT left join Sales as S on S.ContractID=CT.ID left join Productioner as P on P.ContractID=CT.ID left join Warehouse as W on W.ContractID=CT.ID order by CT.Contract_Date desc ";
+            ObservableCollection<Stats> ww = new ObservableCollection<Stats>(Query<Stats>(sql));
             return ww;
         }
         public static ObservableCollection<Contract_Data> ContractDataQuery(Guid id)
@@ -260,6 +280,26 @@ namespace ContractStatementManagementSystem
         {
             string sql = String.Format(@"SELECT * FROM [Accountantlog] where ID='{0}'", id);
             ObservableCollection<AccountantLog> ww = new ObservableCollection<AccountantLog>(Query<AccountantLog>(sql));
+            return ww;
+        }
+        public static ObservableCollection<Invoicing> Invoicing(Guid id)
+        {
+
+            string sql = String.Format(@"SELECT * FROM (select row_number() over(order by[LogDate] desc) as rownum, *FROM[Invoicing] where Contract_ID = '{2}' ) as r where r.rownum >{0} and rownum <={1}",0,5,id);
+            ObservableCollection<Invoicing> ww = new ObservableCollection<Invoicing>(Query<Invoicing>(sql));
+            return ww;
+        }
+        public static ObservableCollection<Invoicing> Invoicing(Guid id,int a)
+        {
+
+            string sql = String.Format(@"SELECT * FROM (select row_number() over(order by[LogDate] desc) as rownum, *FROM[Invoicing] where Contract_ID = '{2}' ) as r where r.rownum >{0} and rownum <={1}", a, a+5, id);
+            ObservableCollection<Invoicing> ww = new ObservableCollection<Invoicing>(Query<Invoicing>(sql));
+            return ww;
+        }
+        public static ObservableCollection<double> InvoicingCount(Guid id)
+        {
+            string sql = String.Format(@"SELECT SubInvoiceCount FROM [Accountant] where ServiceID='{0}'", id);
+            ObservableCollection<double> ww = new ObservableCollection<double>(Query<double>(sql));
             return ww;
         }
         public static void insert( object ob)
@@ -423,10 +463,42 @@ namespace ContractStatementManagementSystem
                     conn.Open();
                     conn.Execute(s, dic);
                 }
-              
+                if (ob is Invoicing)
+                {
+                    Invoicing a = (Invoicing)ob;
+                    string sql0 = @"insert into Invoicing(ID,ServiceID,LogName,InvoicingDate,LogDate,Contract_ID,Count,Service,Amount) values(@ID,@ServiceID,@LogName,@InvoicingDate,@LogDate,@Contract_ID,@Count,@Service,@Amount)";
+                    var dic = new Dictionary<string, object>();
+                    dic.Add("@ID", a.ID);
+                    dic.Add("@ServiceID", a.ServiceID);
+                    dic.Add("@LogName", a.LogName);
+                    dic.Add("@InvoicingDate", a.InvoicingDate);
+                    dic.Add("@LogDate", a.LogDate);
+                    dic.Add("@Contract_ID", a.Contract_ID);
+                    dic.Add("Amount", a.Amount);
+                    dic.Add("@Count", a.Count);
+                    dic.Add("@Service", a.Service);
+                    string s = string.Concat(sql0);
+                    conn.Open();
+                    conn.Execute(s, dic);
+                }
 
             }
 
+        }
+        public static void updataAcc(object ob)
+        {
+            using (var conn = new SqlConnection(@string))
+            {
+                Accountant a = (Accountant)ob;
+                string sql0 = @"update Accountant set SubInvoiceCount=@SubInvoiceCount,SubInvoiceAmount=@SubInvoiceAmount where ID=@ID";
+                var dic = new Dictionary<string, object>();
+                dic.Add("@ID", a.ID);
+                dic.Add("@SubInvoiceCount", a.SubInvoiceCount);
+                dic.Add("@SubInvoiceAmount", a.SubInvoiceAmount);
+                string s = string.Concat(sql0);
+                conn.Open();
+                conn.Execute(s, dic);
+            }
         }
         public static void updata( object ob) {
             using (var conn = new SqlConnection(@string))
@@ -435,13 +507,12 @@ namespace ContractStatementManagementSystem
                 if (ob is Accountant)
                 {
                     Accountant a = (Accountant)ob;
-                    string sql0 = @"update Accountant set ID=@ID,ContractID=@ContractID,AffirmIncomeGist=@AffirmIncomeGist, SubAffirmIncomeAmount=@SubAffirmIncomeAmount, SubInvoiceCount=@SubInvoiceCount,SubInvoiceAmount=@SubInvoiceAmount,SubCost=@SubCost,SubMaterial=@SubMaterial,Subworker=@Subworker,SubManufacturing_Costs=@SubManufacturing_Costs,Subtotal=@Subtotal,AvgGrossrofitMargin=@AvgGrossrofitMargin,NoAffirmIncomeAmount=@NoAffirmIncomeAmount where ID=@ID";
+                    string sql0 = @"update Accountant set ID=@ID,ContractID=@ContractID,AffirmIncomeGist=@AffirmIncomeGist, SubAffirmIncomeAmount=@SubAffirmIncomeAmount,SubCost=@SubCost,SubMaterial=@SubMaterial,Subworker=@Subworker,SubManufacturing_Costs=@SubManufacturing_Costs,Subtotal=@Subtotal,AvgGrossrofitMargin=@AvgGrossrofitMargin,NoAffirmIncomeAmount=@NoAffirmIncomeAmount where ID=@ID";
                     var dic = new Dictionary<string, object>();
                     dic.Add("@ID", a.ID);
                     dic.Add("@AffirmIncomeGist", a.AffirmIncomeGist);
                     dic.Add("@SubAffirmIncomeAmount", a.SubAffirmIncomeAmount);
-                    dic.Add("@SubInvoiceCount", a.SubInvoiceCount);
-                    dic.Add("@SubInvoiceAmount", a.SubInvoiceAmount);
+                 
                     dic.Add("@SubCost", a.SubCost);
                     dic.Add("@SubMaterial", a.SubMaterial);
                     dic.Add("@Subworker", a.Subworker);
@@ -521,6 +592,24 @@ namespace ContractStatementManagementSystem
                     dic.Add("@ID", a.ID);
                     dic.Add("@Service", a.Service);
 
+                    conn.Open();
+                    conn.Execute(s, dic);
+
+                }
+                if (ob is SalesLog)
+                {
+                    SalesLog a = (SalesLog)ob;
+                    string sql0 = @"update [SalesLog] set ID=@ID,AffirmIncomeDate=@AffirmIncomeDate,AffirmIncomeAmount=@AffirmIncomeAmount, ContractID=@ContractID,LogDate=@LogDate,ServiceID=@ServiceID,Service=@Service where ID=@ID";
+                    var dic = new Dictionary<string, object>();
+                    dic.Add("@ID", a.ID);
+                    dic.Add("@AffirmIncomeDate", a.AffirmIncomeDate);
+                    dic.Add("@AffirmIncomeAmount", a.AffirmIncomeAmount);
+                   
+                    dic.Add("@ContractID", a.ContractID);
+                    dic.Add("@LogDate", a.LogDate);
+                    dic.Add("@ServiceID", a.ServiceID);
+                    dic.Add("@Service", a.Service);
+                    string s = string.Concat(sql0);
                     conn.Open();
                     conn.Execute(s, dic);
 

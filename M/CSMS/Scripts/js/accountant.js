@@ -29,21 +29,18 @@ addLoadEvent(function () { fillServiceZZ(AccountantJson, AccountantLogJson) });
 function fillServiceZZ(AccountantJson) {
     var reg = new RegExp("&quot;", "g"); //创建正则RegExp对象   LogDatesJson 
     Accountant = JSON.parse(AccountantJson.replace(reg, '"'));
-   
-    fullData(ContractName, Contract_Amount, SubAffirmIncomeAmount, NoAmountCollection, Accountant[0].AffirmIncomeGist, Accountant[0].SubAffirmIncomeAmount, Accountant[0].SubInvoiceCount, Accountant[0].SubInvoiceAmount, Accountant[0].SubCost, Accountant[0].Subworker, Accountant[0].SubMaterial, Accountant[0].Subtotal, Accountant[0].AvgGrossrofitMargin);
+    fullData(ContractName, Contract_Amount, SubAffirmIncomeAmount, NoAmountCollection, Accountant[0].AffirmIncomeGist, Accountant[0].SubAffirmIncomeAmount, Accountant[0].SubInvoiceAmount, Accountant[0].SubCost, Accountant[0].Subworker, Accountant[0].SubMaterial, Accountant[0].Subtotal, Accountant[0].AvgGrossrofitMargin);
     fillService(Accountant);
     fullLog(AccountantLogJson)
 }
 //填充数据
-function fullData(contractName, amount, subAffirmIncomeAmount, noAmountCollection, affirmIncomeGist, AffirmIncomeAmount, subInvoiceCount, subInvoiceAmount, subCost, subworker, subMaterial, subtotal, avgGrossrofitMargin){
+function fullData(contractName, amount, subAffirmIncomeAmount, noAmountCollection, affirmIncomeGist, AffirmIncomeAmount, subInvoiceAmount, subCost, subworker, subMaterial, subtotal, avgGrossrofitMargin){
 	document.getElementById("lbl_contractName").innerHTML = "合同名称：" + contractName;
 	document.getElementById("lbl_amount").innerHTML = "总金额：" + amount;
 	document.getElementById("lbl_subAffirmIncomeAmount").innerHTML = "已收金额：" + subAffirmIncomeAmount;
 	document.getElementById("lbl_noAmountCollection").innerHTML = "未收金额：" + noAmountCollection;
 	document.getElementById("lbl_affirmIncomeGist").innerHTML = "确认收入依据：" + affirmIncomeGist;
 	document.getElementById("lbl_AffirmIncomeAmount").innerHTML = "确认收入金额（不含税）：" + AffirmIncomeAmount;
-	document.getElementById("lbl_subInvoiceCount").innerHTML = "已开票数量：" + subInvoiceCount;
-	document.getElementById("lbl_subInvoiceAmount").innerHTML = "已开票金额（含税）：" + subInvoiceAmount;
 	document.getElementById("lbl_subCost").innerHTML = "已结转成本数量：" + subCost;
 	document.getElementById("lbl_subworker").innerHTML = "直接人工：" + subworker;
 	document.getElementById("lbl_subMaterial").innerHTML = "直接材料：" + subMaterial;
@@ -88,7 +85,7 @@ function addLog(logName,date,service,name,ID) {
     var div_content = document.createElement("div");
     div_content.className = "cd-timeline-content";
     var h3 = document.createElement("h3");
-    h3.innerHTML = "结算原因：" + logName;
+    h3.innerHTML = "结算说明：" + logName;
     var p_service = document.createElement("p");
     p_service.innerHTML = "服务款项：" + service;
     var p_log = document.createElement("p");
@@ -128,16 +125,16 @@ function serviceChanged(service) {
 }
 
 //填充每个服务的数据
-function fullServiceData(Accountant) {
-	document.getElementById("lbl_affirmIncomeGist").innerHTML = "确认收入依据：" + Accountant.AffirmIncomeGist;
-	document.getElementById("lbl_AffirmIncomeAmount").innerHTML = "确认收入金额（不含税）：" + Accountant.SubAffirmIncomeAmount;
-	document.getElementById("lbl_subInvoiceCount").innerHTML = "已开票数量：" + Accountant.SubInvoiceCount;
-	document.getElementById("lbl_subInvoiceAmount").innerHTML = "已开票金额（含税）：" + Accountant.SubInvoiceAmount;
-	document.getElementById("lbl_subCost").innerHTML = "已结转成本数量：" + Accountant.SubCost;
-	document.getElementById("lbl_subworker").innerHTML = "直接人工：" + Accountant.Subworker;
-	document.getElementById("lbl_subMaterial").innerHTML = "直接材料：" + Accountant.SubMaterial;
-	document.getElementById("lbl_subtotal").innerHTML = "小计：" + Accountant.Subtotal;
-	document.getElementById("lbl_avgGrossrofitMargin").innerHTML = "2017年1-12月毛利率：" + Accountant.AvgGrossrofitMargin;
+function fullServiceData(Accountants) {
+	document.getElementById("lbl_affirmIncomeGist").innerHTML = "确认收入依据：" + Accountants.AffirmIncomeGist;
+	document.getElementById("lbl_AffirmIncomeAmount").innerHTML = "确认收入金额（不含税）：" + Accountants.SubAffirmIncomeAmount;
+	
+	
+	document.getElementById("lbl_subCost").innerHTML = "已结转成本数量：" + Accountants.SubCost;
+	document.getElementById("lbl_subworker").innerHTML = "直接人工：" + Accountants.Subworker;
+	document.getElementById("lbl_subMaterial").innerHTML = "直接材料：" + Accountants.SubMaterial;
+	document.getElementById("lbl_subtotal").innerHTML = "小计：" + Accountants.Subtotal;
+	document.getElementById("lbl_avgGrossrofitMargin").innerHTML = "2017年1-12月毛利率：" + Accountants.AvgGrossrofitMargin;
 }
 
 function lazyLoad() {

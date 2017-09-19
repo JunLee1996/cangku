@@ -45,11 +45,15 @@
             <nav class="nav-hidden" id="menu">
                 <ul>
                     <li><a href="#" onclick="return false;">合同内容</a></li>
-                    <li><a  href="~/Sales/sales">销售</a></li>
                     <li><a href="~/Production/Production">生产</a></li>
-                    <li><a href="~/Warehouse/Warehouse">仓库</a></li>
-                    <li><a href="~/Project/Project">工程</a></li>
-                    <li><a href="~/Accountant/Accountant">财务</a></li>
+                    <li><a href="~/Warehouse/Warehouse">发货</a></li>
+                    <li><a href="~/Project/Project">施工</a></li>
+                    <li><a href="~/Sales/sales">收款</a></li>
+                    <li>
+                        <a href="~/Invoicing/Invoicing">开票</a>
+                    </li>
+                    <li><a href="~/Accountant/Accountant">结算</a></li>
+                    <li><a href="~/Summation/Summation">合同汇总</a></li>
                     <div class="text-center">
                         <button class="btn btn-primary btn-back" type="button" onclick="location.href = '/Contract/Index'">返回</button>
                     </div>
@@ -62,6 +66,7 @@
     <script src="~/Scripts/js/bootstrap/jquery.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="~/Scripts/js/bootstrap/bootstrap.js" type="text/javascript" charset="utf-8"></script>
     <script src="~/Scripts/js/mmenu/jquery.mmenu.all.js" type="text/javascript" charset="utf-8"></script>
+  
     <script type="text/javascript">
   @model ContractStatementManagementSystem.ContractNameT
 
@@ -74,7 +79,7 @@
         var Contract_Date = "@Model.Contract_Date.ToShortDateString()";
         var ss = "@ViewBag.ServicesJson";
         var ID = "@Model.ID";
-       
+
 
         jQuery(document).ready(function ($) {
             $("#menu").mmenu({

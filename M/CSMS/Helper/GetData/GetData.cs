@@ -43,11 +43,24 @@ namespace ContractStatementManagementSystem
         }
         public static ObservableCollection<Sales> SalesGet(SalesLog sl, ObservableCollection<Sales> os) {
             SqlQuery.insert(sl);
-            os[0].AmountCollection += sl.AmountCollection;
+           // os[0].AmountCollection += sl.AmountCollection;
             os[0].NoAmountCollection -= sl.AffirmIncomeAmount;
             os[0].SubAffirmIncomeAmount += sl.AffirmIncomeAmount;
             os[0].SubInvoiceAmount += sl.InvoiceAmount;
             os[0].SubInvoiceCount += sl.InvoiceCount;
+            SqlQuery.updata(os[0]);
+            return os;
+        }
+        public static ObservableCollection<Sales> SalesChangeGet(SalesLog sl, ObservableCollection<Sales> os)
+        {
+            ObservableCollection<SalesLog> sl2 = SqlQuery.SalesLogQueryByID(sl.ID);
+            sl.LogDate = sl2[0].LogDate;
+            SqlQuery.updata(sl);
+            // os[0].AmountCollection = sl.AmountCollection-sl.AmountCollection;
+            os[0].NoAmountCollection = os[0].NoAmountCollection+ sl2[0].AffirmIncomeAmount-sl.AffirmIncomeAmount;
+            os[0].SubAffirmIncomeAmount = os[0].SubAffirmIncomeAmount + sl.AffirmIncomeAmount - sl2[0].AffirmIncomeAmount;
+            //os[0].SubInvoiceAmount += sl.InvoiceAmount;
+            //os[0].SubInvoiceCount += sl.InvoiceCount;;
             SqlQuery.updata(os[0]);
             return os;
         }
@@ -71,22 +84,55 @@ namespace ContractStatementManagementSystem
             SqlQuery.insert(pd);
          
         }
-        public static ObservableCollection<Accountant> AccountantGet(AccountantLog al, ObservableCollection<Accountant> a ) {
+        public static void AccountantGet(AccountantLog al, Accountant a ) {
+            Accountant ab = (Accountant)a.Clone();
+            a.SubAffirmIncomeAmount = Convert.ToDecimal(al.AffirmIncomeAmount);
+            a.AffirmIncomeGist = al.AffirmIncomeGist;
+            a.SubInvoiceAmount = Convert.ToDecimal(al.InvoiceAmount);
+            a.SubInvoiceCount = Convert.ToDouble(al.InvoiceCount);  
+            a.SubManufacturing_Costs = Convert.ToDecimal(al.Manufacturing_Costs);
+            a.SubMaterial = Convert.ToDecimal(al.Material);
+            a.Subtotal = Convert.ToDecimal(al.Subtotal);
+            a.Subworker = Convert.ToDecimal(al.worker);
+            a.AvgGrossrofitMargin = Convert.ToDouble(al.GrossrofitMargin);
+            a.SubCost = Convert.ToDouble(al.Cost);
+            SqlQuery.updata(a);
+            if (ab.SubAffirmIncomeAmount != Convert.ToDecimal(al.AffirmIncomeAmount)) {
+               al.AffirmIncomeAmount = " 由 " + ab.SubAffirmIncomeAmount + " 更改为 " + Convert.ToDecimal(al.AffirmIncomeAmount);
+            }
+            if (ab.AffirmIncomeGist != al.AffirmIncomeGist)
+            {
+                al.AffirmIncomeGist = " 由 " + ab.AffirmIncomeGist + " 更改为 " + al.AffirmIncomeGist;
+            }
+             if (ab.SubInvoiceAmount != Convert.ToDecimal(al.InvoiceAmount))
+            {
+                al.InvoiceAmount = " 由 " + ab.SubInvoiceAmount + "更改为" + Convert.ToDecimal(al.InvoiceAmount);
+            }
+            if (ab.SubInvoiceCount != Convert.ToDouble(al.InvoiceCount))
+            {
+                al.InvoiceCount = " 由 " + ab.SubInvoiceCount + " 更改为 " + Convert.ToDouble(al.InvoiceCount);
+            }
+            if (ab.SubManufacturing_Costs != Convert.ToDecimal(al.Manufacturing_Costs))
+            {
+                al.Manufacturing_Costs = " 由 " + ab.SubManufacturing_Costs + " 更改为 " + Convert.ToDecimal(al.Manufacturing_Costs);
+            }
+            if (ab.SubMaterial != Convert.ToDecimal(al.Material))
+            {
+                al.Material = " 由 " + ab.SubMaterial + " 更改为 " + Convert.ToDecimal(al.Material);
+            }
+            if (ab.Subtotal != Convert.ToDecimal(al.Subtotal))
+            {
+                al.Subtotal = " 由 " + ab.Subtotal + " 更改为 " + Convert.ToDecimal(al.Subtotal);
+            }
+            if (ab.Subworker != Convert.ToDecimal(al.worker))
+            {
+                al.worker = " 由 " + ab.Subworker + " 更改为 " + Convert.ToDecimal(al.worker);
+            }
+            if (ab.SubCost != Convert.ToDouble(al.Cost))
+            { 
+                al.Cost = " 由 " + ab.SubCost + " 更改为 " + Convert.ToDouble(al.Cost);
+            }
             SqlQuery.insert(al);
-            
-            a[0].SubAffirmIncomeAmount = al.AffirmIncomeAmount;
-            a[0].AffirmIncomeGist = al.AffirmIncomeGist;
-            a[0].SubInvoiceAmount = al.InvoiceAmount;
-            a[0].SubInvoiceCount = al.InvoiceCount;
-            a[0].SubManufacturing_Costs = al.Manufacturing_Costs;
-            a[0].SubMaterial = al.Material;
-            a[0].Subtotal = al.Subtotal;
-            a[0].Subworker = al.worker;
-            a[0].AvgGrossrofitMargin = al.GrossrofitMargin;
-            a[0].NoAffirmIncomeAmount = al.AffirmIncomeAmount;
-            a[0].SubCost = al.Cost;
-            SqlQuery.updata(a[0]);
-            return a;
         }
         public static void first (ContractNameT ct,Contract_Data cd){
             Productioner pr = new Productioner();

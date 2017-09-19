@@ -70,7 +70,7 @@ function addLog(logName, log, date, logDate, name) {
     var div_content = document.createElement("div");
     div_content.className = "cd-timeline-content";
     var h3 = document.createElement("h3");
-    h3.innerHTML = "产品:" + logName;
+    h3.innerHTML = "生产说明:" + logName;
     var p_log = document.createElement("p");
     p_log.innerHTML = "生产数量：" + log + " 套/个";
     var p_date = document.createElement("p");

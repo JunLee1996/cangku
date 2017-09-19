@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ContractStatementManagementSystem
 {
-   public class Accountant
+   public class Accountant : ICloneable
     {
       public Guid ID { get; set; }
       public Guid ContractID { get; set; } //合同名
@@ -23,5 +23,10 @@ namespace ContractStatementManagementSystem
        public decimal NoAffirmIncomeAmount { get; set; }//未收款项
        public Guid ServiceID { get; set; } //服务ID；
         public string Service { get; set; }//服务名
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }

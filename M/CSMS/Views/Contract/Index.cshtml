@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="~/Content/css/datepicker/default.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/css/datepicker/default.date.css" />
     <script language="javascript" type="text/javascript">
-            var arr = @ViewBag.ss;
+            var arr ="@ViewBag.ss";
         var arrID = '@ViewBag.s1';
         
     </script>
@@ -97,6 +97,7 @@
 			webshim.activeLang('zh-CN');
 			webshims.polyfill('forms');
 			webshims.cfg.no$Switch = true;
+
     </script>
 </body>
 
