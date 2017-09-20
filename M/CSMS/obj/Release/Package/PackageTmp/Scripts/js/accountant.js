@@ -38,11 +38,9 @@ function fullData(contractName, amount, subAffirmIncomeAmount, noAmountCollectio
 	document.getElementById("lbl_contractName").innerHTML = "合同名称：" + contractName;
 	document.getElementById("lbl_amount").innerHTML = "总金额：" + amount;
 	document.getElementById("lbl_subAffirmIncomeAmount").innerHTML = "已收金额：" + subAffirmIncomeAmount;
-	document.getElementById("lbl_noAmountCollection").innerHTML = "未收金额：" + noAmountCollection;
+	document.getElementById("lbl_noAmountCollection").innerHTML = "未收金额：" + noAmountCollection ;
 	document.getElementById("lbl_affirmIncomeGist").innerHTML = "确认收入依据：" + affirmIncomeGist;
-	document.getElementById("lbl_AffirmIncomeAmount").innerHTML = "确认收入金额（不含税）：" + AffirmIncomeAmount;
-	
-	document.getElementById("lbl_subInvoiceAmount").innerHTML = "已开票金额（含税）：" + subInvoiceAmount;
+	document.getElementById("lbl_AffirmIncomeAmount").innerHTML = "确认收入金额（不含税）：" + AffirmIncomeAmount ;
 	document.getElementById("lbl_subCost").innerHTML = "已结转成本数量：" + subCost;
 	document.getElementById("lbl_subworker").innerHTML = "直接人工：" + subworker;
 	document.getElementById("lbl_subMaterial").innerHTML = "直接材料：" + subMaterial;
@@ -131,7 +129,7 @@ function fullServiceData(Accountants) {
 	document.getElementById("lbl_affirmIncomeGist").innerHTML = "确认收入依据：" + Accountants.AffirmIncomeGist;
 	document.getElementById("lbl_AffirmIncomeAmount").innerHTML = "确认收入金额（不含税）：" + Accountants.SubAffirmIncomeAmount;
 	
-	document.getElementById("lbl_subInvoiceAmount").innerHTML = "已开票金额（含税）：" + Accountants.SubInvoiceAmount;
+	
 	document.getElementById("lbl_subCost").innerHTML = "已结转成本数量：" + Accountants.SubCost;
 	document.getElementById("lbl_subworker").innerHTML = "直接人工：" + Accountants.Subworker;
 	document.getElementById("lbl_subMaterial").innerHTML = "直接材料：" + Accountants.SubMaterial;

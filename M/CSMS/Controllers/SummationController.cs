@@ -16,21 +16,32 @@ namespace WebApplication4.Controllers
         // GET: Summation
         public ActionResult Summation()
         {
-            if (Session["cc"] != null)
+            try
+            {
+                if (Session["cc"] != null)
             {
                 ViewBag.Message = Session["cc"];
             }
             string s = ViewBag.Message;
             Guid ID = new Guid(s);
-            ObservableCollection<Productioner> opr=SqlQuery.ProductionerQuery(ID);
-            ObservableCollection<Warehouse> ow=SqlQuery.WarehouseQuery(ID);
+            ObservableCollection<Productioner> opr = SqlQuery.ProductionerQuery(ID);
+            ObservableCollection<Warehouse> ow = SqlQuery.WarehouseQuery(ID);
             ObservableCollection<Project_data> opj = SqlQuery.Project_dataQuery(ID);
-            ObservableCollection<Sales> osl =SqlQuery.SalesQuery(ID);
+            ObservableCollection<Sales> osl = SqlQuery.SalesQuery(ID);
             ObservableCollection<Accountant> oac = SqlQuery.AccountantQuery(ID);
-            oac=Orderby.AccountantPaixuByService(oac);
+            oac = Orderby.AccountantPaixuByService(oac);
             opj = Orderby.Project_dataPaixu(opj);
-            ObservableCollection < ContractNameT > oct = SqlQuery.ContractVQuery(ID);
+            ObservableCollection<ContractNameT> oct = SqlQuery.ContractVQuery(ID);
             ObservableCollection<Invoicing> oin = SqlQuery.Invoicing(ID);
+            ObservableCollection<ProductionerLog> pl = SqlQuery.ProductionerLogQueryAll(ID);
+            ObservableCollection<WarehouseLog> owl = SqlQuery.WarehouseLogQueryAll(ID);
+            ObservableCollection<SalesLog> osll = SqlQuery.SalesLogQueryAll(ID);
+            ViewBag.InvoicingLogJson = JsonTools.ObjectToJson(SqlQuery.InvoicingAll(ID));
+            ViewBag.AccountantLogJson = JsonTools.ObjectToJson(SqlQuery.AccountantLogQueryAll(ID));
+            ViewBag.ProjectLogJson = JsonTools.ObjectToJson(SqlQuery.ProjectLogQueryAll(ID));
+            ViewBag.SalesLogJson = JsonTools.ObjectToJson(osll);
+            ViewBag.WarehouseLogJson = JsonTools.ObjectToJson(owl);
+            ViewBag.ProductionerLogJson = JsonTools.ObjectToJson(pl);
             ViewBag.ProductionerJson = JsonTools.ObjectToJson(opr);
             ViewBag.WarehouseJson = JsonTools.ObjectToJson(ow);
             ViewBag.ProjectJson = JsonTools.ObjectToJson(opj);
@@ -38,8 +49,14 @@ namespace WebApplication4.Controllers
             ViewBag.AccountantJson = JsonTools.ObjectToJson(oac);
             ViewBag.ContractNameTJson = JsonTools.ObjectToJson(oct);
             ViewBag.InvoicingJson = JsonTools.ObjectToJson(oin);
-            ViewBag.Contract_Date=oct[0].Contract_Date.ToShortDateString();
+            ViewBag.Contract_Date = oct[0].Contract_Date.ToShortDateString();
             return View();
+        }
+             catch
+            {
+                return RedirectToAction("Index", "Contract", new { ex = "操作异常已退回首页请刷新重试" });
+            }
+
         }
     }
 }

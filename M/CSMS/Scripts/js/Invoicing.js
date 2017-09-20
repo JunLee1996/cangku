@@ -29,7 +29,7 @@ addLoadEvent(function () { fillServiceZZ(AccountantJson) });
 function fillServiceZZ(AccountantJson) {
     var reg = new RegExp("&quot;", "g"); //创建正则RegExp对象   LogDatesJson 
     Accountant = JSON.parse(AccountantJson.replace(reg, '"'));
-    fullData(name, Accountant[0].SubInvoiceCount, Accountant[0].SubInvoiceAmount);
+    fullData(name, Accountant[0].SubInvoiceCount, Accountant[0].SubInvoiceAmount, Accountant[0].InvoicingDate);
     fillService(Accountant);
     fullLog(InvoicingJson)
 }
@@ -38,6 +38,7 @@ function fullData(name, count, Amount) {
     document.getElementById("lbl_contractName").innerHTML = "合同名称：" + name;
     document.getElementById("lbl_count").innerHTML = "已开票数量：" + count;
     document.getElementById("lbl_amount").innerHTML = "开票金额：" + Amount;
+
 }
 
 //填充日志
@@ -81,9 +82,9 @@ function addLog(logName, date, service, Count, name, InDate, Amount) {
     var p_service = document.createElement("p");
     p_service.innerHTML = "服务款项：" + service;
     var vCount = document.createElement("p");
-    vCount.innerHTML = "开票数量：" + Count;
+    vCount.innerHTML = "开票数量：" + Count+"张";
     var vAmount = document.createElement("p");
-    vAmount.innerHTML = "开票金额：" + Amount;
+    vAmount.innerHTML = "开票金额：" + Amount+"元";
     var vInDate = document.createElement("p");
     vInDate.innerHTML = "开票日期：" + InDate;
     var span = document.createElement("span");
@@ -125,6 +126,7 @@ function fullServiceData(Ac) {
     
     document.getElementById("lbl_count").innerHTML = "已开票数量：" + Ac.SubInvoiceCount;
     document.getElementById("lbl_amount").innerHTML = "合同名称：" + Ac.SubInvoiceAmount;
+
 }
 
 function lazyLoad() {

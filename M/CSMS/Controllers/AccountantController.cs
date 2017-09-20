@@ -106,7 +106,8 @@ namespace WebApplication4.Controllers
         }
         public ActionResult saveAccountantLog(AccountantLog al)
         {
-          
+            try
+            {
                 ViewBag.p = "";
                 if (Session["cc"] != null)
                 {
@@ -131,6 +132,11 @@ namespace WebApplication4.Controllers
                 al.Service = cd[0].Service;
                 GetData.AccountantGet(al, at);
                 return RedirectToAction("Accountant");
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Contract", new { ex = "操作异常已退回首页请刷新重试" });
+            }
         }
         public ActionResult AccountantLogAjaxTT()
         {

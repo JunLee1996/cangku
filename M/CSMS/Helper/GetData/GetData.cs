@@ -97,42 +97,59 @@ namespace ContractStatementManagementSystem
             a.AvgGrossrofitMargin = Convert.ToDouble(al.GrossrofitMargin);
             a.SubCost = Convert.ToDouble(al.Cost);
             SqlQuery.updata(a);
+            bool flag = false;
             if (ab.SubAffirmIncomeAmount != Convert.ToDecimal(al.AffirmIncomeAmount)) {
-               al.AffirmIncomeAmount = " 由 " + ab.SubAffirmIncomeAmount + " 更改为 " + Convert.ToDecimal(al.AffirmIncomeAmount);
+                flag = true;
+                al.AffirmIncomeAmount = " 由 " + ab.SubAffirmIncomeAmount + " 更改为 " + Convert.ToDecimal(al.AffirmIncomeAmount);
             }
             if (ab.AffirmIncomeGist != al.AffirmIncomeGist)
             {
+                flag = true;
                 al.AffirmIncomeGist = " 由 " + ab.AffirmIncomeGist + " 更改为 " + al.AffirmIncomeGist;
             }
              if (ab.SubInvoiceAmount != Convert.ToDecimal(al.InvoiceAmount))
             {
+                flag = true;
                 al.InvoiceAmount = " 由 " + ab.SubInvoiceAmount + "更改为" + Convert.ToDecimal(al.InvoiceAmount);
             }
             if (ab.SubInvoiceCount != Convert.ToDouble(al.InvoiceCount))
             {
+                flag = true;
                 al.InvoiceCount = " 由 " + ab.SubInvoiceCount + " 更改为 " + Convert.ToDouble(al.InvoiceCount);
             }
             if (ab.SubManufacturing_Costs != Convert.ToDecimal(al.Manufacturing_Costs))
             {
+                flag = true;
                 al.Manufacturing_Costs = " 由 " + ab.SubManufacturing_Costs + " 更改为 " + Convert.ToDecimal(al.Manufacturing_Costs);
             }
             if (ab.SubMaterial != Convert.ToDecimal(al.Material))
             {
+                flag = true;
                 al.Material = " 由 " + ab.SubMaterial + " 更改为 " + Convert.ToDecimal(al.Material);
             }
             if (ab.Subtotal != Convert.ToDecimal(al.Subtotal))
             {
+                flag = true;
                 al.Subtotal = " 由 " + ab.Subtotal + " 更改为 " + Convert.ToDecimal(al.Subtotal);
             }
             if (ab.Subworker != Convert.ToDecimal(al.worker))
             {
+                flag = true;
                 al.worker = " 由 " + ab.Subworker + " 更改为 " + Convert.ToDecimal(al.worker);
             }
             if (ab.SubCost != Convert.ToDouble(al.Cost))
-            { 
+            {
+                flag = true;
                 al.Cost = " 由 " + ab.SubCost + " 更改为 " + Convert.ToDouble(al.Cost);
             }
-            SqlQuery.insert(al);
+            if (ab.AvgGrossrofitMargin != Convert.ToDouble(al.GrossrofitMargin))
+            {
+                flag = true;
+                al.GrossrofitMargin = " 由 " + ab.AvgGrossrofitMargin + " 更改为 " + Convert.ToDouble(al.GrossrofitMargin);
+            }
+            if(flag  == true){
+                SqlQuery.insert(al);
+            }
         }
         public static void first (ContractNameT ct,Contract_Data cd){
             Productioner pr = new Productioner();

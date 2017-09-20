@@ -29,10 +29,6 @@ function fullData(logName, contractName, service,affirmIncomeGist,AffirmIncomeAm
 	if (affirmIncomeGist.indexOf("更改为") != -1) {
 	    $("#lbl_affirmIncomeGist").css("color", "green");
 	}
-	document.getElementById("lbl_subInvoiceAmount").innerHTML = "已开票金额（含税）：" + subInvoiceAmount;
-	if (subInvoiceAmount.indexOf("更改为") != -1) {
-	    $("#lbl_subInvoiceAmount").css("color", "green");
-	}
 	document.getElementById("lbl_subCost").innerHTML = "已结转成本数量：" + subCost;
 	if (subCost.indexOf("更改为") != -1) {
 	    $("#lbl_subCost").css("color", "green");

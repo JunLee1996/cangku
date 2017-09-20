@@ -35,7 +35,7 @@ addLoadEvent(function () { fullLog(SalesLogJson) });
 //        insertAfter(logList, log);
 //    }
 //}
-
+var n = 0;
 //填充数据
 function fullData(contractName, contractAmount, amountReceived, amountNotReceived) {
     if (amountNotReceived==0) {
@@ -67,14 +67,15 @@ function fullLog(haslog) {
         var aa = SalesLog.length - 1
         var SalesLogID=SalesLog[aa].ID;
         for (var i = 0; i < SalesLog.length; i++) {
-            addLog(SalesLog[i].LogName, SalesLog[i].Service, SalesLog[i].AffirmIncomeAmount, SalesLog[i].AffirmIncomeDate, SalesLog[i].LogDate, SalesLog[i].Name);
+            addLog(SalesLog[i].LogName, SalesLog[i].Service, SalesLog[i].AffirmIncomeAmount, SalesLog[i].AffirmIncomeDate, SalesLog[i].LogDate, SalesLog[i].Name, SalesLog[i].ID);
         }
     }
 }
 
 
 //添加日志
-function addLog(logName, service, log, date, logDate, name) {
+function addLog(logName, service, log, date, logDate, name,ID) {
+    
     var logList = document.getElementById("cd-timeline");
     var div_block = document.createElement("div");
     div_block.className = "cd-timeline-block";
@@ -87,7 +88,7 @@ function addLog(logName, service, log, date, logDate, name) {
     var div_content = document.createElement("div");
     div_content.className = "cd-timeline-content";
     var h3 = document.createElement("h3");
-    h3.innerHTML = "收款说明:" + logName;
+    h3.innerHTML = "收款说明 :" + logName;
     var p_service = document.createElement("p");
     p_service.innerHTML = "服务款项：" + service;
     var p_log = document.createElement("p");
@@ -97,25 +98,27 @@ function addLog(logName, service, log, date, logDate, name) {
     var span = document.createElement("span");
     span.className = "cd-date";
     span.innerHTML = logDate + " by " + name;
-    var a = document.createElement("a");
-    a.className = "cd-read-more";
-    a.href = " SalesModification?logName=" + logName + "&service=" + service + "&log=" + log + "&date=" + date+"&ID="+ID;
-    a.innerHTML = "修改"
+    
     div_content.appendChild(h3);
     div_content.appendChild(p_service)
     div_content.appendChild(p_log);
     div_content.appendChild(p_date);
-    div_content.appendChild(a);
+        var a = document.createElement("a");
+        a.className = "cd-read-more";
+        a.href = " SalesModification?logName=" + logName + "&service=" + service + "&log=" + log + "&date=" + date + "&ID=" + ID;
+        a.innerHTML = "修改"
+        div_content.appendChild(a);
     div_content.appendChild(span);
     div_block.appendChild(div_content);
     logList.appendChild(div_block);
+   
 }
 
 function lazyLoad() {
     N = N + 5;
     $.ajax({
         type: "POST",
-        url: "/ContractandSales/SalesAjaxTT?ID=" + N,
+        url: "/Sales/SalesAjaxTT?ID=" + N,
         async: true,
         cache: false,
         success: function (data) {

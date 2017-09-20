@@ -11,7 +11,7 @@ namespace ContractStatementManagementSystem
     {
       public Guid ID { get; set; }
        string dompletedDate { get; set; }
-        public string DompletedDate //库存量
+        public string DompletedDate 
         {
             get { return dompletedDate; }
 
@@ -27,7 +27,7 @@ namespace ContractStatementManagementSystem
             }
         }
         string dompletedAcceptanceDate { get; set; }
-        public string DompletedAcceptanceDate //库存量
+        public string DompletedAcceptanceDate 
         {
             get { return dompletedAcceptanceDate; }
 

@@ -22,6 +22,7 @@ namespace ContractStatementManagementSystem
       public double AvgGrossrofitMargin { get; set; } //最新毛利
        public decimal NoAffirmIncomeAmount { get; set; }//未收款项
        public Guid ServiceID { get; set; } //服务ID；
+        public string InvoicingDate { get; set; }
         public string Service { get; set; }//服务名
 
         public object Clone()

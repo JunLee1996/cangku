@@ -165,4 +165,3 @@ D:\cangku\M\CSMS\bin\Microsoft.Owin.Security.Twitter.xml
 D:\cangku\M\CSMS\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 D:\cangku\M\CSMS\obj\Debug\WebApplication4.dll
 D:\cangku\M\CSMS\obj\Debug\WebApplication4.pdb
-D:\cangku\M\CSMS\obj\Debug\CSMS.csprojResolveAssemblyReference.cache

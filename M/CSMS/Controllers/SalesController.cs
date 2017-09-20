@@ -153,7 +153,8 @@ namespace WebApplication4.Controllers
         }
         public ActionResult SaveSalesChangeLog(SalesLog sl)
         {
-            
+            try
+            {
                 ViewBag.p = "";
                 if (Session["cc"] != null)
                 {
@@ -172,7 +173,11 @@ namespace WebApplication4.Controllers
                 sl.Service = cd[0].Service;
                 GetData.SalesChangeGet(sl, SqlQuery.SalesQuery(ID));
                 return RedirectToAction("Sales");
-           
+            }
+            catch
+            {
+                return RedirectToAction("Index", "Contract", new { ex = "操作异常已退回首页请刷新重试" });
+            }
 
 
         }

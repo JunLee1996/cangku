@@ -94,6 +94,12 @@ namespace ContractStatementManagementSystem
         ObservableCollection<ProductionerLog> ww = new ObservableCollection<ProductionerLog>(Query<ProductionerLog>(sql));
             return ww;
         }
+        public static ObservableCollection<ProductionerLog> ProductionerLogQueryAll(Guid id)
+        {
+            string sql = String.Format(@"select * from  [ProductionerLog] where  ContractID='{0}' order by[LogDate] desc", id);
+            ObservableCollection<ProductionerLog> ww = new ObservableCollection<ProductionerLog>(Query<ProductionerLog>(sql));
+            return ww;
+        }
         public static ObservableCollection<ProductionerLog> ProductionerLogQueryLz(int a,Guid id)
         {
             string sql = String.Format(@"select * from( select row_number() over(order by [LogDate] desc) as rownum, * FROM [ProductionerLog] where ContractID='{2}' ) as r where r.rownum >{0} and rownum <={1}", a, a + 5, id);
@@ -109,6 +115,12 @@ namespace ContractStatementManagementSystem
         public static ObservableCollection<WarehouseLog> WarehouseLogQuery (Guid id)
         {
             string sql = String.Format(@"select * from(select row_number() over(order by [LogDate] desc) as rownum, * FROM [WarehouseLog] where ContractID='{0}' ) as r where r.rownum >0 and rownum <=5", id);
+            ObservableCollection<WarehouseLog> ww = new ObservableCollection<WarehouseLog>(Query<WarehouseLog>(sql));
+            return ww;
+        }
+        public static ObservableCollection<WarehouseLog> WarehouseLogQueryAll(Guid id)
+        {
+            string sql = String.Format(@"select * from [WarehouseLog] where ContractID='{0}' order by[LogDate] desc", id);
             ObservableCollection<WarehouseLog> ww = new ObservableCollection<WarehouseLog>(Query<WarehouseLog>(sql));
             return ww;
         }
@@ -128,6 +140,13 @@ namespace ContractStatementManagementSystem
 
         {
             string sql = String.Format(@"select * from(select row_number() over(order by [LogDate] desc) as rownum, * FROM [SalesLog] where ContractID='{0}' ) as r where r.rownum >0 and rownum <=5", id);
+            ObservableCollection<SalesLog> ww = new ObservableCollection<SalesLog>(Query<SalesLog>(sql));
+            return ww;
+        }
+        public static ObservableCollection<SalesLog> SalesLogQueryAll(Guid id)
+
+        {
+            string sql = String.Format(@"select * from [SalesLog] where ContractID='{0}' order by[LogDate] desc", id);
             ObservableCollection<SalesLog> ww = new ObservableCollection<SalesLog>(Query<SalesLog>(sql));
             return ww;
         }
@@ -232,6 +251,12 @@ namespace ContractStatementManagementSystem
             ObservableCollection<ProjectLog> ww = new ObservableCollection<ProjectLog>(Query<ProjectLog>(sql));
             return ww;
         }
+        public static ObservableCollection<ProjectLog> ProjectLogQueryAll( Guid id)
+        {
+            string sql = String.Format(@"select * from [ProjectLog] where ContractID='{0}' order by[LogDate] desc", id);
+            ObservableCollection<ProjectLog> ww = new ObservableCollection<ProjectLog>(Query<ProjectLog>(sql));
+            return ww;
+        }
         public static ObservableCollection<ProjectLog> ProjectLogByIDQuery(Guid id)
         {
             string sql = String.Format(@"SELECT * FROM [ProjectLog] where ID='{0}'", id);
@@ -276,6 +301,12 @@ namespace ContractStatementManagementSystem
             ObservableCollection<AccountantLog> ww = new ObservableCollection<AccountantLog>(Query<AccountantLog>(sql));
             return ww;
         }
+        public static ObservableCollection<AccountantLog> AccountantLogQueryAll( Guid id)
+        {
+            string sql = String.Format(@"select * from  [Accountantlog] where ContractID='{0}' order by[LogDate] desc", id);
+            ObservableCollection<AccountantLog> ww = new ObservableCollection<AccountantLog>(Query<AccountantLog>(sql));
+            return ww;
+        }
         public static ObservableCollection<AccountantLog> AccountantLogQueryByID(Guid id)
         {
             string sql = String.Format(@"SELECT * FROM [Accountantlog] where ID='{0}'", id);
@@ -289,10 +320,25 @@ namespace ContractStatementManagementSystem
             ObservableCollection<Invoicing> ww = new ObservableCollection<Invoicing>(Query<Invoicing>(sql));
             return ww;
         }
+        public static ObservableCollection<Invoicing> InvoicingAll(Guid id)
+        {
+
+            string sql = String.Format(@"SELECT * FROM [Invoicing] where Contract_ID = '{0}'order by[LogDate] desc ", id);
+            ObservableCollection<Invoicing> ww = new ObservableCollection<Invoicing>(Query<Invoicing>(sql));
+            return ww;
+        }
         public static ObservableCollection<Invoicing> Invoicing(Guid id,int a)
         {
 
             string sql = String.Format(@"SELECT * FROM (select row_number() over(order by[LogDate] desc) as rownum, *FROM[Invoicing] where Contract_ID = '{2}' ) as r where r.rownum >{0} and rownum <={1}", a, a+5, id);
+            ObservableCollection<Invoicing> ww = new ObservableCollection<Invoicing>(Query<Invoicing>(sql));
+            return ww;
+        }
+       
+        public static ObservableCollection<Invoicing> InvoicingDateByService(Guid id)
+        {
+
+            string sql = String.Format(@"SELECT InvoicingDate FROM [Invoicing] where ServiceID='{0}'", id);
             ObservableCollection<Invoicing> ww = new ObservableCollection<Invoicing>(Query<Invoicing>(sql));
             return ww;
         }

@@ -16,6 +16,7 @@ namespace WebApplication4.Controllers
         // GET: Invoicing AddInvoicingLog
         public ActionResult Invoicing()
         {
+            try { 
             if (Session["cc"] != null)
             {
                 ViewBag.Message = Session["cc"];
@@ -32,9 +33,15 @@ namespace WebApplication4.Controllers
             ViewBag.InvoicingJson = JsonTools.ObjectToJson(oin);
             ViewBag.Name = name[0];
             return View();
+            }
+            catch
+            {
+                return RedirectToAction("Index", "Contract", new { ex = "操作异常已退回首页请刷新重试" });
+            }
         }
         public ActionResult AddInvoicingLog()
         {
+            try { 
             if (Session["cc"] != null)
             {
                 ViewBag.Message = Session["cc"];
@@ -44,13 +51,22 @@ namespace WebApplication4.Controllers
             ObservableCollection<Contract_Data> ocd =SqlQuery.ContractDataQuery(ID);
             ocd = Orderby.paiXu(ocd);
             ViewBag.Contract_DataJson = JsonTools.ObjectToJson(ocd);
-            ObservableCollection<ContractNameT> os = SqlQuery.ContractVQuery(ID);
+            ObservableCollection<Accountant>oat=SqlQuery.AccountantQuery(ID);
+            ViewBag.AccountantJson = JsonTools.ObjectToJson(oat);
+                ObservableCollection<ContractNameT> os = SqlQuery.ContractVQuery(ID);
             ViewBag.ss1 = os[0].Contract_Amount;
             return View();
+            }
+            catch
+            {
+                return RedirectToAction("Index", "Contract", new { ex = "操作异常已退回首页请刷新重试" });
+            }
         }
         public ActionResult SaveInvoicingLog( Invoicing inc)
         {
-            if (Session["cc"] != null)
+            try
+            {
+                if (Session["cc"] != null)
             {
                 ViewBag.Message = Session["cc"];
             }
@@ -65,13 +81,20 @@ namespace WebApplication4.Controllers
             inc.Service = odd[0].Service;
             SqlQuery.insert(inc);
             ObservableCollection<Accountant> oc = SqlQuery.AccountantByServiceQuery(ID2);
-            oc[0].SubInvoiceCount = inc.Count;
-            oc[0].SubInvoiceAmount = inc.Amount;
+            oc[0].SubInvoiceCount += inc.Count;
+            oc[0].SubInvoiceAmount += inc.Amount;
+            oc[0].InvoicingDate = inc.InvoicingDate;
             SqlQuery.updataAcc(oc[0]);
             return RedirectToAction("Invoicing");
+            }
+            catch
+            {
+                return RedirectToAction("Index", "Contract", new { ex = "操作异常已退回首页请刷新重试" });
+            }
         }
         public ActionResult InvoicingLogAjax(Invoicing inc)
         {
+            try { 
             if (Session["cc"] != null)
             {
                 ViewBag.Message = Session["cc"];
@@ -83,6 +106,11 @@ namespace WebApplication4.Controllers
             ObservableCollection<Invoicing> oin = SqlQuery.Invoicing(ID,a);
             string result = JsonTools.ObjectToJson(oin);
             return Content(result);
+            }
+            catch
+            {
+                return RedirectToAction("Index", "Contract", new { ex = "操作异常已退回首页请刷新重试" });
+            }
         }
 
     }

@@ -323,7 +323,6 @@
     <Content Include="Scripts\js\accountantLog.js" />
     <Content Include="Scripts\js\addAccountantLog.js" />
     <Content Include="Scripts\js\addContract.js" />
-    <Content Include="Scripts\js\addInvoicingLog.js" />
     <Content Include="Scripts\js\addProjectLog.js" />
     <Content Include="Scripts\js\addSalesLog.js" />
     <Content Include="Scripts\js\bootstrap\bootstrap.js" />

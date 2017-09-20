@@ -88,7 +88,8 @@
         var LogDatesJson = "@ViewBag.LogDatesJson";
         var AccountantJson = "@ViewBag.AccountantJson";
         var Service = "@ViewBag.Service";
-       
+        var ss = "@ViewBag.ss1"
+
     </script>
     <script type="text/javascript">
 			webshim.activeLang('zh-CN');
@@ -102,14 +103,11 @@
     }
 });
     </script>
-    <script type="text/javascript">
-        var ss = "@ViewBag.ss1"
-
-    </script>
+   
     <script type="text/javascript">
       $(function(){
           var amountNotReceived = ss;
-          $('#hhh').html("<span style='color: red;'>*</span>已结转成本数量:（总金额： " + amountNotReceived + " 元）")
+          $('#hhh').html("<span style='color: red;'>*</span>确认收入金额（不含税）（总金额： " + amountNotReceived + " 元）")
           $('#txt_affirmIncomeAmount').attr("max", amountNotReceived);
       });
     </script>
