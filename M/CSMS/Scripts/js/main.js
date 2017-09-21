@@ -103,7 +103,7 @@ function lazyLoad() {
     if (sessionStorage.getItem("txt_keyword") == null) {
         var $txt_keyword = "";
     } else {
-        kd=sessionStorage.getItem("txt_keyword");
+        $txt_keyword = sessionStorage.getItem("txt_keyword");
     } if (sessionStorage.getItem("txt_startDate") == null && sessionStorage.getItem("txt_endDate") == null) {
         var $txt_startDate = "";
         var $txt_endDate = "";

@@ -105,7 +105,7 @@ function addLog(logName, service, log, date, logDate, name,ID) {
     div_content.appendChild(p_date);
         var a = document.createElement("a");
         a.className = "cd-read-more";
-        a.href = " SalesModification?logName=" + logName + "&service=" + service + "&log=" + log + "&date=" + date + "&ID=" + ID;
+        a.href = " SalesModification?logName=" + logName + "&service=" + service + "&log=" + log + "&date=" + date + "&ID=" + ID + "&NoAmountCollection=" + NoAmountCollection;
         a.innerHTML = "修改"
         div_content.appendChild(a);
     div_content.appendChild(span);

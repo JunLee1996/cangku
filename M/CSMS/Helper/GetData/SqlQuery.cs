@@ -342,6 +342,20 @@ namespace ContractStatementManagementSystem
             ObservableCollection<Invoicing> ww = new ObservableCollection<Invoicing>(Query<Invoicing>(sql));
             return ww;
         }
+        public static ObservableCollection<Invoicing> InvoicingDateByID(Guid id)
+        {
+
+            string sql = String.Format(@"SELECT InvoicingDate FROM [Invoicing] where ID='{0}'", id);
+            ObservableCollection<Invoicing> ww = new ObservableCollection<Invoicing>(Query<Invoicing>(sql));
+            return ww;
+        }
+        public static ObservableCollection<Invoicing> InvoicingByID(Guid id)
+        {
+
+            string sql = String.Format(@"SELECT * FROM [Invoicing] where ID='{0}'", id);
+            ObservableCollection<Invoicing> ww = new ObservableCollection<Invoicing>(Query<Invoicing>(sql));
+            return ww;
+        }
         public static ObservableCollection<double> InvoicingCount(Guid id)
         {
             string sql = String.Format(@"SELECT SubInvoiceCount FROM [Accountant] where ServiceID='{0}'", id);
@@ -659,6 +673,18 @@ namespace ContractStatementManagementSystem
                     conn.Open();
                     conn.Execute(s, dic);
 
+                }
+                if (ob is Invoicing)
+                {
+                    Invoicing a = (Invoicing)ob;
+                    string s = @"update Invoicing set ID=ID,Amount=@Amount, Count=@Count, InvoicingDate=@InvoicingDate where ID=@ID";
+                    var dic = new Dictionary<string, object>();
+                    dic.Add("@ID", a.ID);
+                    dic.Add("@Amount", a.Amount);
+                    dic.Add("@Count", a.Count);
+                    dic.Add("@InvoicingDate", a.Count);
+                    conn.Open();
+                    conn.Execute(s, dic);
                 }
 
             }

@@ -198,6 +198,7 @@
     <Compile Include="Controllers\InvoicingController.cs" />
     <Compile Include="Controllers\SalesController.cs" />
     <Compile Include="Controllers\SummationController.cs" />
+    <Compile Include="Helper\GetData\ConfigHelper.cs" />
     <Compile Include="Helper\GetData\Orderby.cs" />
     <Compile Include="Helper\GetData\GetData.cs" />
     <Compile Include="Helper\GetData\JsonTools.cs" />
@@ -333,7 +334,9 @@
     <Content Include="Scripts\js\datepicker\picker.date.js" />
     <Content Include="Scripts\js\datepicker\picker.js" />
     <Content Include="Scripts\js\datepicker\zh_CN.js" />
+    <Content Include="Scripts\js\echart\echarts.common.min.js" />
     <Content Include="Scripts\js\Invoicing.js" />
+    <Content Include="Scripts\js\InvoicingModification.js" />
     <Content Include="Scripts\js\mmenu\echart\echarts.common.min.js" />
     <Content Include="Scripts\js\main.js" />
     <Content Include="Scripts\js\mmenu\jquery.mmenu.all.js" />
@@ -537,6 +540,7 @@
     <Content Include="Views\Invoicing\Invoicing.cshtml" />
     <Content Include="Views\Invoicing\AddInvoicingLog.cshtml" />
     <Content Include="Views\Summation\Summation.cshtml" />
+    <Content Include="Views\Invoicing\InvoicingModification.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

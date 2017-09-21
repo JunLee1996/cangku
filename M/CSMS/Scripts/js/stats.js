@@ -152,21 +152,21 @@ function initBarChart(element, titleText, legendData1, legendData2, aContractNam
 			}
         ],
         series: [{
-            name: legendData2,
+            name: legendData1,
             type: 'bar',
             stack: 'barChart',
             data: dataValue1,
-            itemStyle: {
+        },
+			{
+			    name: legendData2,
+			    type: 'bar',
+			    stack: 'barChart',
+			    data: dataValue2,
+                itemStyle: {
                 normal: {
                     color: '#333'
                 }
             }
-        },
-			{
-			    name: legendData1,
-			    type: 'bar',
-			    stack: 'barChart',
-			    data: dataValue2
 			}
         ]
     };

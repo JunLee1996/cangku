@@ -22,7 +22,7 @@
             <form role="form" action="saveAccountantLog" method="post">
                 <div class="form-group">
                     <label class="control-label" for="txt_logName"><span style="color: red;">*</span>结算说明：</label>
-                    <input type="text" class="form-control" id="txt_logName" name="LogName" placeholder="请输入日志名" required />
+                    <input type="text" class="form-control" id="txt_logName" name="LogName" placeholder="请输入结算说明" required />
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="txt_services"><span style="color: red;">*</span>服务款项：</label>
@@ -38,12 +38,12 @@
                         <option value="培训或服务完成客户签收单">培训或服务完成客户签收单</option>
                     </select>
                 </div>
-               
+                
                 <div class="form-group">
                     <label class="control-label" for="txt_affirmIncomeAmount"id="hhh">确认收入金额（不含税）：</label>
                     <div class="input-group">
                         <label class="input-group-addon">￥</label>
-                        <input type="number" min="0" max="10000000000" step="0.01" class="form-control" id="txt_affirmIncomeAmount" name="AffirmIncomeAmount" placeholder="请输入确认收入金额" />
+                        <input type="number" min="0" max="10000000000" step="0.01" class="form-control" id="txt_affirmIncomeAmount" name="AffirmIncomeAmount" placeholder="请输入确认收入金额" onchange="computations()"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -54,14 +54,14 @@
                     <label class="control-label" for="txt_worker">直接人工：</label>
                     <div class="input-group">
                         <label class="input-group-addon">￥</label>
-                        <input type="number" min="0" max="10000000000" step="0.01" class="form-control" id="txt_worker" name="worker" placeholder="请输入直接人工" />
+                        <input type="number" min="0" max="10000000000" step="0.01" class="form-control" id="txt_worker" name="worker" placeholder="请输入直接人工" onchange="computations()"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="txt_material">直接材料：</label>
                     <div class="input-group">
                         <label class="input-group-addon">￥</label>
-                        <input type="number" min="0" max="10000000000" step="0.01" class="form-control" id="txt_material" name="Material" placeholder="请输入直接材料" />
+                        <input type="number" min="0" max="10000000000" step="0.01" class="form-control" id="txt_material" name="Material" placeholder="请输入直接材料" onchange="computations()"/>
                     </div>
                 </div>
                 <div class="form-group">
