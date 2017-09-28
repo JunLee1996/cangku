@@ -137,20 +137,13 @@ namespace WebApplication4.Controllers
                 string s = ViewBag.Message;
                 Guid ID = new Guid(s);
                 ObservableCollection<Contract_Data> cd = SqlQuery.ContractDataQuery(ID);
-                SqlQuery.ContractVQuery(ID);
-                string lo= Request["NoAmountCollection"];
-                decimal NoAmountCollection = Convert.ToDecimal(Request["NoAmountCollection"]);
                 ViewBag.Contract_DataJson = JsonTools.ObjectToJson(cd);
                 ViewBag.logName = Request["logName"];
-              
+                ViewBag.service= Request["service"];
                 ViewBag.log = Request["log"];
                 ViewBag.date = Request["date"];
                 string s9= Request["ID"];
-                ObservableCollection<SalesLog>  oss=SqlQuery.SalesLogQueryByID(new Guid(s9)); 
                 Session["salesid"]= Request["ID"];
-                decimal d = Convert.ToDecimal(Request["log"]);
-                ViewBag.ss1 = NoAmountCollection + d;
-                ViewBag.service = oss[0].ServiceID;
                 return View();
             }
             catch {
@@ -164,12 +157,11 @@ namespace WebApplication4.Controllers
             {
                 ViewBag.p = "";
                 if (Session["cc"] != null)
-                {  ViewBag.Message = Session["cc"];
+                {
                 }
-              
+                ViewBag.Message = Session["cc"];
                 string s = ViewBag.Message;
                 ViewBag.p= Session["salesid"];
-                Session.Remove("salesid");
                 string sss = ViewBag.p;
                 Guid ID2 = new Guid(sss);
                 Guid ID = new Guid(s);

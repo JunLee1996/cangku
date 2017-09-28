@@ -105,7 +105,7 @@ function addLog(logName, service, log, date, logDate, name,ID) {
     div_content.appendChild(p_date);
         var a = document.createElement("a");
         a.className = "cd-read-more";
-        a.href = " SalesModification?logName=" + logName + "&service=" + service + "&log=" + log + "&date=" + date + "&ID=" + ID + "&NoAmountCollection=" + NoAmountCollection;
+        a.href = " SalesModification?logName=" + logName + "&service=" + service + "&log=" + log + "&date=" + date + "&ID=" + ID;
         a.innerHTML = "修改"
         div_content.appendChild(a);
     div_content.appendChild(span);
@@ -130,7 +130,7 @@ function lazyLoad() {
             }
             if (data == "[]") {
                 N -= 5;
-                alert("暂无最新数据！");
+                show("暂无最新数据！");
                 return false;
             }
             for (var i = 0; i < SalesLog.length; i++) {
@@ -141,7 +141,7 @@ function lazyLoad() {
             }
         },
         error: function () {
-            alert("请求失败");
+            show("请求失败");
         }
     });
     var $timeline_block = $('.cd-timeline-block');

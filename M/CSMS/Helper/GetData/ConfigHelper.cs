@@ -28,6 +28,10 @@ namespace ContractStatementManagementSystem
         {
             return FetchValue("CorpSecret");
         }
+        public static String FetchAgentID()
+        {
+            return FetchValue("AgentID");
+        }
         #endregion
 
         #region FetchValue Function                

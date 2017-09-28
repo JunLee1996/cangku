@@ -112,6 +112,12 @@ namespace ContractStatementManagementSystem
             ObservableCollection<Warehouse> ww = new ObservableCollection<Warehouse>(Query<Warehouse>(sql));
             return ww;
         }
+        public static ObservableCollection<Permissions> PermissionsQueryByID(string id)
+        {
+            string sql = String.Format(@"SELECT * FROM [Permissions] where ID='{0}'", id);
+            ObservableCollection<Permissions> ww = new ObservableCollection<Permissions>(Query<Permissions>(sql));
+            return ww;
+        }
         public static ObservableCollection<WarehouseLog> WarehouseLogQuery (Guid id)
         {
             string sql = String.Format(@"select * from(select row_number() over(order by [LogDate] desc) as rownum, * FROM [WarehouseLog] where ContractID='{0}' ) as r where r.rownum >0 and rownum <=5", id);
@@ -339,20 +345,6 @@ namespace ContractStatementManagementSystem
         {
 
             string sql = String.Format(@"SELECT InvoicingDate FROM [Invoicing] where ServiceID='{0}'", id);
-            ObservableCollection<Invoicing> ww = new ObservableCollection<Invoicing>(Query<Invoicing>(sql));
-            return ww;
-        }
-        public static ObservableCollection<Invoicing> InvoicingDateByID(Guid id)
-        {
-
-            string sql = String.Format(@"SELECT InvoicingDate FROM [Invoicing] where ID='{0}'", id);
-            ObservableCollection<Invoicing> ww = new ObservableCollection<Invoicing>(Query<Invoicing>(sql));
-            return ww;
-        }
-        public static ObservableCollection<Invoicing> InvoicingByID(Guid id)
-        {
-
-            string sql = String.Format(@"SELECT * FROM [Invoicing] where ID='{0}'", id);
             ObservableCollection<Invoicing> ww = new ObservableCollection<Invoicing>(Query<Invoicing>(sql));
             return ww;
         }
@@ -673,18 +665,6 @@ namespace ContractStatementManagementSystem
                     conn.Open();
                     conn.Execute(s, dic);
 
-                }
-                if (ob is Invoicing)
-                {
-                    Invoicing a = (Invoicing)ob;
-                    string s = @"update Invoicing set ID=ID,Amount=@Amount, Count=@Count, InvoicingDate=@InvoicingDate where ID=@ID";
-                    var dic = new Dictionary<string, object>();
-                    dic.Add("@ID", a.ID);
-                    dic.Add("@Amount", a.Amount);
-                    dic.Add("@Count", a.Count);
-                    dic.Add("@InvoicingDate", a.Count);
-                    conn.Open();
-                    conn.Execute(s, dic);
                 }
 
             }

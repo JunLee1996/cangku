@@ -60,11 +60,15 @@
             </nav>
         </div>
     </div>
+    <script src="http://g.alicdn.com/dingding/open-develop/1.6.9/dingtalk.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://g.alicdn.com/dingding/dingtalk-pc-api/2.7.0/index.js" type="text/javascript" charset="utf-8"></script>
     <script src="~/Scripts/js/bootstrap/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="~/Scripts/js/premissions.js" type="text/javascript" charset="utf-8"></script>
     <script src="~/Scripts/js/production.js" type="text/javascript" charset="utf-8"></script>
     <script src="~/Scripts/js/bootstrap/bootstrap.js" type="text/javascript" charset="utf-8"></script>
     <script src="~/Scripts/js/mmenu/jquery.mmenu.all.js" type="text/javascript" charset="utf-8"></script>
     <script src="~/Scripts/js/timeline/modernizr.js" type="text/javascript" charset="utf-8"></script>
+    
     <script type="text/javascript">
         @model ContractStatementManagementSystem.Productioner
         var TotalProduct= @Model.TotalProduct;
@@ -72,19 +76,19 @@
         var ContractName = "@ViewBag.ContractName";
         var Count =@ViewBag.Count ;
         var ProductionerLogJson='@ViewBag.ProductionerLogJson';
-       
-			jQuery(document).ready(function($) {
-				$("#menu").mmenu({
-					"navbar": {
-						"title": "菜单"
-					},
-					"extensions": [
-						"pagedim-black"
-					]
-				});
-			});
-			$("#menu").removeClass("nav-hidden");
-        
+        var UserJson=sessionStorage.getItem("User");
+        jQuery(document).ready(function($) {
+            $("#menu").mmenu({
+                "navbar": {
+                    "title": "菜单"
+                },
+                "extensions": [
+                    "pagedim-black"
+                ]
+            });
+        });
+        $("#menu").removeClass("nav-hidden");
+
     </script>
     <script type="text/javascript">
 			$(function() {

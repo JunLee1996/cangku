@@ -8,6 +8,8 @@ using System.Collections.ObjectModel;
 using Newtonsoft.Json;
 using System.Web.Script.Serialization;
 using System.Text;
+using System.Net;
+using System.IO;
 
 namespace WebApplication4.Controllers
 {
@@ -37,7 +39,6 @@ namespace WebApplication4.Controllers
         public ActionResult SaveContract(ContractNameT ct)
         {
             Contract_Data cd = new Contract_Data();
-
             try {
                 ViewBag.p = "";
                 cd.Service = Request["Service"];
@@ -107,8 +108,76 @@ namespace WebApplication4.Controllers
             }
             ViewBag.ss = GetContractName();
             ViewBag.s1 = GetContractID();
-            
             return View();
+        }
+        public ActionResult GetSignPackage()
+        {
+            
+            AccessTokenGet.UpdateAccessToken();
+            Session["Token"] = AccessTokenGet.AccessToken.Value;
+           
+            var signPackage = SignGet.FetchSignPackage(Request["url"], AccessTokenGet.AccessToken);
+           
+            return Content(JsonTools.ObjectToJson(signPackage));
+
+        }
+        public ActionResult GetuserId()
+        {
+            string CODE = Request["code"];
+            ViewBag.Message = Session["Token"];
+            string s = ViewBag.Message;
+            string TokenUrl = "https://oapi.dingtalk.com/user/getuserinfo";
+            string apiurl = $"{TokenUrl}?access_token={s}&code={CODE}";
+          
+            WebRequest request = WebRequest.Create(@apiurl);
+            request.Method = "GET";
+            WebResponse response = request.GetResponse();
+            Stream stream = response.GetResponseStream();
+            Encoding encode = Encoding.UTF8;
+            StreamReader reader = new StreamReader(stream, encode);
+            string resultJson = reader.ReadToEnd();
+            return Content(resultJson);
+
+        }
+        public ActionResult Getuser()
+        {
+            try
+            {
+                string userid = Request["userid"];
+                ViewBag.Message = Session["Token"];
+                Session["userid"] = userid;
+                string s = ViewBag.Message;
+                string TokenUrl = "https://oapi.dingtalk.com/user/get";
+                string apiurl = $"{TokenUrl}?access_token={s}&userid={userid}";
+                WebRequest request = WebRequest.Create(@apiurl);
+                request.Method = "GET";
+                WebResponse response = request.GetResponse();
+                Stream stream = response.GetResponseStream();
+                Encoding encode = Encoding.UTF8;
+                StreamReader reader = new StreamReader(stream, encode);
+                string resultJson = reader.ReadToEnd();
+                ObservableCollection<string> obc = new ObservableCollection<string>();
+                ObservableCollection<Permissions> ops = SqlQuery.PermissionsQueryByID(userid);
+                
+                if (ops.Count == 0)
+                {
+                    obc.Add(resultJson);
+                    obc.Add("0");
+                   
+                }
+                else
+                {
+                   
+                    obc.Add(resultJson);
+                    obc.Add("1");
+                }
+
+                return Content(JsonTools.ObjectToJson(obc));
+            }
+            catch {
+                return RedirectToAction("Index", "Contract", new { ex = "操作异常已退回首页请刷新重试" });
+            }
+
         }
         public static string GetContractName() {
             ObservableCollection<ContractNameT> ctt = SqlQuery.ContractQuery();
@@ -158,16 +227,18 @@ namespace WebApplication4.Controllers
             }
             return JsonConvert.SerializeObject(a);
         }
-       
         public ActionResult ContractContent()
         {
-            string s;
-            Guid ID;
-            try {
+            try
+            {
+                string s;
+                Guid ID;
+
                 ViewBag.p = "";
                 if (Request["ID"] == null)
                 {
                     ViewBag.Message = Session["cc"];
+
                     s = ViewBag.Message;
                     ID = new Guid(s);
                 }
@@ -175,49 +246,43 @@ namespace WebApplication4.Controllers
                     s = Request["ID"];
                     ID = new Guid(s);
                 }
+                ViewBag.Message = Session["userid"];
+                string userid = ViewBag.Message;
+
+                ObservableCollection<Permissions> ops = SqlQuery.PermissionsQueryByID(userid);
+
+                if (ops.Count == 0)
+                {
+                    ViewBag.UserJson = "";
+                }
+                else { ViewBag.UserJson = JsonTools.ObjectToJson(ops[0]); }
                 ObservableCollection<ContractNameT> ct = SqlQuery.ContractVQuery(ID);
                 ObservableCollection<Contract_Data> cd = SqlQuery.ContractDataQuery(ID);
                 cd = Orderby.paiXu(cd);
                 string[] Services = new string[cd.Count];
                 int i = 0;
-                foreach (Contract_Data cda in cd) {
+                foreach (Contract_Data cda in cd)
+                {
                     Services[i++] = cda.Service;
                 }
                 ViewBag.ServicesJson = JsonTools.ObjectToJson(Services);
+
                 ContractNameT cc = ct[0];
                 Session["cc"] = s;
-                ViewContext c = new ViewContext();
-                c.ViewData = new ViewDataDictionary();
-                c.ViewData.Add("cc", s);
-                ViewBag.h = ID.ToString();
-                return View(cc); }
-            catch (Exception)
+                //ViewContext c = new ViewContext();
+                //c.ViewData = new ViewDataDictionary();
+                //c.ViewData.Add("cc", s);
+                //ViewBag.h = ID.ToString();
+
+
+                return View(cc);
+            }
+            catch
             {
-                return RedirectToAction("Index", new { ex = "操作异常已退回首页请刷新重试" });
+                return RedirectToAction("Index", "Contract", new { ex = "操作异常已退回首页请刷新重试" });
             }
         }
-        
-        public ActionResult addSalesLog()
-        {
-            ViewBag.p = "";
-            if (Session["cc"] != null)
-            {
-                ViewBag.Message = Session["cc"];
-
-                string s = ViewBag.Message;
-                Guid ID = new Guid(s);
-                ObservableCollection<Contract_Data> cd = SqlQuery.ContractDataQuery(ID);
-                cd = Orderby.paiXu(cd);
-                ObservableCollection<Sales> os = SqlQuery.SalesQuery(ID);
-                ViewBag.ss1 = os[0].NoAmountCollection;
-                ViewBag.Contract_DataJson = JsonTools.ObjectToJson(cd);
-                return View();
-
-            }
-            else {
-                return RedirectToAction("Index", new { ex = "操作异常已退回首页请刷新重试" });
-            }
-        }
+       
         public ActionResult filtration()
         {
 

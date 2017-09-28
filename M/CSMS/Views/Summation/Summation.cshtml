@@ -269,7 +269,10 @@
                 </nav>
             </div>
         </div>
-        <script src="~/Scripts/js/bootstrap/jquery-3.2.1.slim.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="http://g.alicdn.com/dingding/open-develop/1.6.9/dingtalk.js" type="text/javascript" charset="utf-8"></script>
+        <script src="https://g.alicdn.com/dingding/dingtalk-pc-api/2.7.0/index.js" type="text/javascript" charset="utf-8"></script>
+        <script src="~/Scripts/js/bootstrap/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="~/Scripts/js/premissions.js" type="text/javascript" charset="utf-8"></script>
         <script src="~/Scripts/js/bootstrap/bootstrap.js" type="text/javascript" charset="utf-8"></script>
         <script src="~/Scripts/js/mmenu/jquery.mmenu.all.js" type="text/javascript" charset="utf-8"></script>
         <script src="~/Scripts/js/timeline/modernizr.js" type="text/javascript" charset="utf-8"></script>
@@ -289,6 +292,7 @@
             var SalesLogJson = "@ViewBag.SalesLogJson"
             var WarehouseLogJson = "@ViewBag.WarehouseLogJson"
             var ProductionerLogJson = "@ViewBag.ProductionerLogJson"
+            var UserJson = sessionStorage.getItem("User");
             function Href() {
                 var reg = new RegExp("&quot;", "g"); //创建正则RegExp对象 ll
                 var AccountantJsons = AccountantJson.replace(reg, '"');

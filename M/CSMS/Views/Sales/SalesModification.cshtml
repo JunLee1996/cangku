@@ -71,17 +71,15 @@
     </script>
     <script  type="text/javascript">
         var ss = "@ViewBag.service";
-        var ss1 = "@ViewBag.ss1"
+        var ss = "@ViewBag.ss1"
         var Contract_DataJson = "@ViewBag.Contract_DataJson";
-      
+        $("#txt_services").find("option[value=" + ss + "]").attr("selected", true);
     </script>
     <script type="text/javascript">
       $(function(){
-          var amountNotReceived = ss1;
-          var ssi = ss;
+          var amountNotReceived = ss;
         $('#lbl_received').html("<span style='color: red;'>*</span>收款金额：（未收金额为 " + amountNotReceived + " 元）")
         $('#txt_received').attr("max", amountNotReceived);
-       
       });
     </script>
 </body>

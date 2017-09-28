@@ -195,24 +195,39 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\FirstPageController.cs" />
     <Compile Include="Controllers\InvoicingController.cs" />
     <Compile Include="Controllers\SalesController.cs" />
     <Compile Include="Controllers\SummationController.cs" />
+    <Compile Include="Helper\GetData\AccessTokenGet.cs" />
     <Compile Include="Helper\GetData\ConfigHelper.cs" />
     <Compile Include="Helper\GetData\Orderby.cs" />
     <Compile Include="Helper\GetData\GetData.cs" />
     <Compile Include="Helper\GetData\JsonTools.cs" />
+    <Compile Include="Helper\GetData\SignGet.cs" />
+    <Compile Include="Helper\GetData\SignPackageHelper.cs" />
+    <Compile Include="Helper\GetData\SimpleCacheProvider.cs" />
     <Compile Include="Helper\GetData\SqlQuery.cs" />
     <Compile Include="Controllers\AccountantController.cs" />
     <Compile Include="Controllers\ProductionController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\WarehouseController.cs" />
+    <Compile Include="Helper\GetData\TicketGet.cs" />
+    <Compile Include="Models\DDModel\AccessToken.cs" />
+    <Compile Include="Models\DDModel\CacheItem.cs" />
+    <Compile Include="Models\DDModel\ICacheProvider.cs" />
+    <Compile Include="Models\DDModel\JSTicket .cs" />
+    <Compile Include="Models\DDModel\ResultPackage.cs" />
+    <Compile Include="Models\DDModel\SignPackage.cs" />
+    <Compile Include="Models\DDModel\Test.cs" />
+    <Compile Include="Models\DDModel\TicketResult.cs" />
     <Compile Include="Models\Model\Accountant.cs" />
     <Compile Include="Models\Model\AccountantLog.cs" />
     <Compile Include="Models\Model\Invoicing.cs" />
     <Compile Include="Models\Model\ContractNameT.cs" />
     <Compile Include="Models\Model\Contract_Data.cs" />
     <Compile Include="Models\Model\MClass.cs" />
+    <Compile Include="Models\Model\Permissions.cs" />
     <Compile Include="Models\Model\Productioner.cs" />
     <Compile Include="Models\Model\ProductionerChart.cs" />
     <Compile Include="Models\Model\ProductionerLog.cs" />
@@ -223,6 +238,7 @@
     <Compile Include="Models\Model\SalesChart.cs" />
     <Compile Include="Models\Model\SalesLog.cs" />
     <Compile Include="Models\Model\Stats.cs" />
+    <Compile Include="Models\DDModel\TokenResult.cs" />
     <Compile Include="Models\Model\Warehouse.cs" />
     <Compile Include="Models\Model\WarehouseChart.cs" />
     <Compile Include="Models\Model\WarehouseLog.cs" />
@@ -250,10 +266,12 @@
     <Content Include="Content\css\datepicker\default.date.css" />
     <Content Include="Content\css\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\css\mmenu\jquery.mmenu.all.css" />
+    <Content Include="Content\css\noPremission.css" />
     <Content Include="Content\css\stats.css" />
     <Content Include="Content\css\timeline\timeline.css" />
     <Content Include="Content\img\cd-icon-location.svg" />
     <Content Include="Content\img\cd-icon-picture.svg" />
+    <Content Include="Content\img\lock.png" />
     <Content Include="Content\img\logo.png" />
     <Content Include="Scripts\datepicker\picker.date.js" />
     <Content Include="Scripts\datepicker\picker.js" />
@@ -334,12 +352,13 @@
     <Content Include="Scripts\js\datepicker\picker.date.js" />
     <Content Include="Scripts\js\datepicker\picker.js" />
     <Content Include="Scripts\js\datepicker\zh_CN.js" />
-    <Content Include="Scripts\js\echart\echarts.common.min.js" />
+    <Content Include="Scripts\js\Demo.js" />
+    <Content Include="Scripts\js\premissions.js" />
     <Content Include="Scripts\js\Invoicing.js" />
-    <Content Include="Scripts\js\InvoicingModification.js" />
     <Content Include="Scripts\js\mmenu\echart\echarts.common.min.js" />
     <Content Include="Scripts\js\main.js" />
     <Content Include="Scripts\js\mmenu\jquery.mmenu.all.js" />
+    <Content Include="Scripts\js\PCdemo.js" />
     <Content Include="Scripts\js\production.js" />
     <Content Include="Scripts\js\project.js" />
     <Content Include="Scripts\js\projectLog.js" />
@@ -540,7 +559,7 @@
     <Content Include="Views\Invoicing\Invoicing.cshtml" />
     <Content Include="Views\Invoicing\AddInvoicingLog.cshtml" />
     <Content Include="Views\Summation\Summation.cshtml" />
-    <Content Include="Views\Invoicing\InvoicingModification.cshtml" />
+    <Content Include="Views\FirstPage\noPremission.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -552,6 +571,9 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

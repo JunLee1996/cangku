@@ -153,7 +153,7 @@ function lazyLoad() {
             }
             if (data == "[]") {
                 N -= 5;
-                alert("暂无最新数据！");
+                show("暂无最新数据！");
                 return false;
             }
             for (var i = 0; i < AccountantLog.length; i++) {
@@ -164,7 +164,7 @@ function lazyLoad() {
             }
         },
         error: function () {
-            alert("请求失败");
+            show("请求失败");
         }
     });
     var $timeline_block = $('.cd-timeline-block');

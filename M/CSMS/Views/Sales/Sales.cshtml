@@ -74,7 +74,10 @@
         </div>
     </div>
 
+    <script src="http://g.alicdn.com/dingding/open-develop/1.6.9/dingtalk.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://g.alicdn.com/dingding/dingtalk-pc-api/2.7.0/index.js" type="text/javascript" charset="utf-8"></script>
     <script src="~/Scripts/js/bootstrap/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="~/Scripts/js/premissions.js" type="text/javascript" charset="utf-8"></script>
     <script src="~/Scripts/js/sales.js" type="text/javascript" charset="utf-8"></script>
     <script src="~/Scripts/js/bootstrap/bootstrap.js" type="text/javascript" charset="utf-8"></script>
     <script src="~/Scripts/js/mmenu/jquery.mmenu.all.js" type="text/javascript" charset="utf-8"></script>
@@ -87,7 +90,7 @@
         var AmountCollection=@Model.SubAffirmIncomeAmount;
         var NoAmountCollection=@Model.NoAmountCollection;
         var SalesLogJson="@ViewBag.SalesLogJson"
-     
+        var UserJson=sessionStorage.getItem("User");
         var ID="@ViewBag.ID";
         jQuery(document).ready(function($) {
             $("#menu").mmenu({

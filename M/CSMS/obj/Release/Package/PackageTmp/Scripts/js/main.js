@@ -27,13 +27,37 @@ var $txt_keyword="";
 var $txt_startDate="";
 var $txt_endDate="";
 addLoadEvent(addClickEvent);
-
 addLoadEvent(ex);
-
 function ex() {
     if (p != "") {
-        alert(p);
-    }
+            if (DingTalkPC) {
+
+                DingTalkPC.device.notification.alert({
+                    message: p,
+                    title: "提示",//可传空
+                    buttonName: "确定",
+                    onSuccess: function () {
+                        /*回调*/
+                       
+                    },
+                    onFail: function (err) { }
+                });
+
+            }
+            if (dd) {
+                dd.ready(function () {
+                    dd.device.notification.alert({
+                        message: p,
+                        title: "提示",//可传空
+                        buttonName: "确定",
+                        onSuccess: function () {
+                           
+                        },
+                        onFail: function (err) { }
+                    });
+                });
+            }
+     }
 }
 function addLoadEvent(func) {
 	var oldonload = window.onload;
@@ -103,7 +127,7 @@ function lazyLoad() {
     if (sessionStorage.getItem("txt_keyword") == null) {
         var $txt_keyword = "";
     } else {
-        $txt_keyword = sessionStorage.getItem("txt_keyword");
+        kd=sessionStorage.getItem("txt_keyword");
     } if (sessionStorage.getItem("txt_startDate") == null && sessionStorage.getItem("txt_endDate") == null) {
         var $txt_startDate = "";
         var $txt_endDate = "";
@@ -132,7 +156,33 @@ function lazyLoad() {
             updateContractList(contractArr);
         },
         error: function () {
-            alert("请求失败");
+            if (DingTalkPC) {
+
+                DingTalkPC.device.notification.alert({
+                    message: "请求失败",
+                    title: "提示",//可传空
+                    buttonName: "确定",
+                    onSuccess: function () {
+                        /*回调*/
+                      
+                    },
+                    onFail: function (err) { }
+                });
+
+            }
+            if (dd) {
+                dd.ready(function () {
+                    dd.device.notification.alert({
+                        message: "请求失败",
+                        title: "提示",//可传空
+                        buttonName: "确定",
+                        onSuccess: function () {
+                         
+                        },
+                        onFail: function (err) { }
+                    });
+                });
+            }
         }
     });
 }
@@ -142,7 +192,33 @@ function filterContract() {
     $txt_startDate = $("#txt_startDate").val();
     $txt_endDate = $("#txt_endDate").val();
     if (($txt_startDate != "" && $txt_endDate == "") || ($txt_startDate == "" && $txt_endDate != "")) {
-        alert("日期不能单个为空！");
+        if (DingTalkPC) {
+
+            DingTalkPC.device.notification.alert({
+                message: "单个日期不能为空",
+                title: "提示",//可传空
+                buttonName: "确定",
+                onSuccess: function () {
+                    /*回调*/
+                
+                },
+                onFail: function (err) { }
+            });
+
+        }
+        if (dd) {
+            dd.ready(function () {
+                dd.device.notification.alert({
+                    message: "单个日期不能为空",
+                    title: "提示",//可传空
+                    buttonName: "确定",
+                    onSuccess: function () {
+                        
+                    },
+                    onFail: function (err) { }
+                });
+            });
+        }
 
     } else {
         sessionStorage.setItem("txt_keyword", $txt_keyword);

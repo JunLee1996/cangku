@@ -77,21 +77,30 @@
             </div>
             <!-- /.modal -->
         </div>
+        <button class="btn btn-danger margin-left" type="button" id="deleteContract" >hh</button>
     </div>
-    <script src="~/Scripts/js/main.js" type="text/javascript" charset="utf-8"></script>
+  
+    <script src="http://g.alicdn.com/dingding/open-develop/1.6.9/dingtalk.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://g.alicdn.com/dingding/dingtalk-pc-api/2.7.0/index.js" type="text/javascript" charset="utf-8"></script>
     <script src="~/Scripts/js/bootstrap/jquery.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="~/Scripts/js/bootstrap/bootstrap.js" type="text/javascript" charset="utf-8"></script>
     <script src="~/Scripts/js/datepicker/picker.js" type="text/javascript" charset="utf-8"></script>
     <script src="~/Scripts/js/datepicker/picker.date.js" type="text/javascript" charset="utf-8"></script>
     <script src="~/Scripts/js/datepicker/zh_CN.js" type="text/javascript" charset="utf-8"></script>
     <script src="~/Scripts/js/webshim/polyfiller.js" type="text/javascript" charset="utf-8"></script>
+    <script src="~/Scripts/js/main.js" type="text/javascript" charset="utf-8"></script>
+
+    @*<script src="~/Scripts/js/PCdemo.js" type="text/javascript" charset="utf-8"></script>*@
+    
     <script type="text/javascript">
 			$('.datepicker').pickadate({
 				format: 'yyyy-m-d',
 				container: 'body'
 			});
 
-        var p="@ViewBag.p";
+			var p = "@ViewBag.p";
+        var signPackage
+        
     </script>
     <script type="text/javascript">
 			webshim.activeLang('zh-CN');

@@ -44,20 +44,43 @@ function fullServices(ss) {
 }
 
 
-window.confirm = function (message) {
-    var iframe = document.createElement("IFRAME");
-    iframe.style.display = "none";
-    iframe.setAttribute("src", 'data:text/plain,');
-    document.documentElement.appendChild(iframe);
-    var alertFrame = window.frames[0];
-    var result = alertFrame.window.confirm(message);
-    iframe.parentNode.removeChild(iframe);
-    return result;
-};
-
 function deleteContract() {
-    var deleteContract = confirm("确定要删除此合同吗？");
-    if (deleteContract) {
-        location.href = "deleteContract";
+
+        if (DingTalkPC) {
+
+            DingTalkPC.device.notification.confirm({
+                message: "确定要删除合同吗",
+                title: "提示",//可传空
+                buttonLabels: ['是', '否'],
+                onSuccess: function (result) { 
+
+                    if (result.buttonIndex == 0) {
+                        location.href = "deleteContract";
+                    }
+
+                },
+                onFail: function (err) { }
+            });
+
+        }
+        if (dd) {
+            dd.ready(function () {
+                dd.device.notification.confirm({
+                    message: "确定要删除合同吗",
+                    title: "提示",//可传空
+                    buttonLabels: ['是', '否'],
+                    onSuccess: function (resultjson) {
+                        var reg = new RegExp("&quot;", "g"); //创建正则RegExp对象    
+                        var result = JSON.parse(resultjson.replace(reg, '"'));
+                       
+                        if (result.buttonIndex == 0) {
+                            location.href = "deleteContract";
+                        }
+                    
+                    },
+                    onFail: function (err) { }
+                });
+            });
+        }
     }
-}
+

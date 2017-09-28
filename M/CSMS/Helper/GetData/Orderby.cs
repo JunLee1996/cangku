@@ -20,17 +20,6 @@ namespace ContractStatementManagementSystem
             return s;
             
         }
-        public static ObservableCollection<ContractNameT> paiXu2(ObservableCollection<ContractNameT> z)
-        {
-            ObservableCollection<ContractNameT> ct = z;
-
-            var query = from ttt in ct
-                        orderby ttt.ContractName
-                        select ttt;
-            ObservableCollection<ContractNameT> s = new ObservableCollection<ContractNameT>(query);
-            return s;
-
-        }
         public static ObservableCollection<ProductionerLog> ProductionerLogPaiXu(ObservableCollection<ProductionerLog> z)
         {
             ObservableCollection<ProductionerLog> ct = z;

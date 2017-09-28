@@ -56,13 +56,16 @@
                     <li><a href="~/Summation/Summation">合同汇总</a></li>
                    
                     <div class="text-center">
-                        <button class="btn btn-primary btn-back" type="button" onclick="location.href = '/Contract/Index'">返回</button>
+                        <button class="btn btn-primary btn-back" type="button" onclick="location.href = '/ContractandSales/Login'">返回</button>
                     </div>
                 </ul>
             </nav>
         </div>
     </div>
+    <script src="http://g.alicdn.com/dingding/open-develop/1.6.9/dingtalk.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://g.alicdn.com/dingding/dingtalk-pc-api/2.7.0/index.js" type="text/javascript" charset="utf-8"></script>
     <script src="~/Scripts/js/bootstrap/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="~/Scripts/js/premissions.js" type="text/javascript" charset="utf-8"></script>
     <script src="~/Scripts/js/warehouse.js" type="text/javascript" charset="utf-8"></script>
     <script src="~/Scripts/js/bootstrap/bootstrap.js" type="text/javascript" charset="utf-8"></script>
     <script src="~/Scripts/js/mmenu/jquery.mmenu.all.js" type="text/javascript" charset="utf-8"></script>
@@ -75,7 +78,7 @@
         var ShippedCount= @Model.ShippedCount;
         var NoShippedCount=@Model.NoShippedCount;
         var WarehouseLogJson ="@ViewBag.WarehouseLogJson";
-        
+        var UserJson=sessionStorage.getItem("User");
 			jQuery(document).ready(function($) {
 				$("#menu").mmenu({
 					"navbar": {
