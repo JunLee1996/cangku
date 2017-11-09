@@ -18,12 +18,7 @@ namespace WebApplication4.Controllers
         {
             try {
                 ViewBag.p = "";
-                if (Session["cc"] != null)
-                {
-                    ViewBag.Message = Session["cc"];
-                }
-                string s = ViewBag.Message;
-                Guid ID = new Guid(s);
+                Guid ID = new Guid(Session["cc"].ToString());
                 ObservableCollection<Warehouse> ow = SqlQuery.WarehouseQuery(ID);
                 ObservableCollection<WarehouseLog> owl = SqlQuery.WarehouseLogQuery(ID);
                 ObservableCollection<ContractNameT> ct = SqlQuery.ContractVQuery(ID);
@@ -49,12 +44,7 @@ namespace WebApplication4.Controllers
         {
             try {
                 ViewBag.p = "";
-                if (Session["cc"] != null)
-                {
-                    ViewBag.Message = Session["cc"];
-                }
-                string s = ViewBag.Message;
-                Guid ID = new Guid(s);
+                Guid ID = new Guid(Session["cc"].ToString());
                 ObservableCollection<Warehouse> ow = SqlQuery.WarehouseQuery(ID);
                 ViewBag.s1 = ow[0].NoShippedCount;
                 ViewBag.Reserves = ow[0].Reserves;
@@ -69,12 +59,7 @@ namespace WebApplication4.Controllers
         {
             try {
                 ViewBag.p = "";
-                if (Session["cc"] != null)
-                {
-                    ViewBag.Message = Session["cc"];
-                }
-                string s = ViewBag.Message;
-                Guid ID = new Guid(s);
+                Guid ID = new Guid(Session["cc"].ToString());
                 ObservableCollection<Warehouse> ow = SqlQuery.WarehouseQuery(ID);
                 wl.DepartmentID = ow[0].ID;
                 wl.ContractID = ID;
@@ -94,12 +79,8 @@ namespace WebApplication4.Controllers
         {
             try {
                 ViewBag.p = "";
-                if (Session["cc"] != null)
-                {
-                    ViewBag.Message = Session["cc"];
-                }
-                string s = ViewBag.Message;
-                Guid ID = new Guid(s);
+        
+                Guid ID = new Guid(Session["cc"].ToString());
                 string ss = Request["ID"];
                 int a = Convert.ToInt16(ss);
 
@@ -114,17 +95,12 @@ namespace WebApplication4.Controllers
         }
         public ActionResult WarehouseLogModification() {
             try { 
-            if (Session["cc"] != null)
-            {
-                ViewBag.Message = Session["cc"];
-            }
-            string s = ViewBag.Message;
-            Guid ID = new Guid(s);
+          
+            Guid ID = new Guid(Session["cc"].ToString());
             ObservableCollection < Warehouse > ob= SqlQuery.WarehouseQuery(ID);
             ViewBag.logName = Request["logName"];
             ViewBag.date = Request["date"];
             ViewBag.log = Request["log"];
-           
             Session["WarehouseLogID"] = Request["ID"];
             ViewBag.logDate = Request["logDate"];
             ViewBag.s1 = ob[0].Reserves + Convert.ToDouble(Request["log"]);
@@ -138,16 +114,11 @@ namespace WebApplication4.Controllers
         public ActionResult SaveWarehouseLogModification(WarehouseLog wl)
         {
             try { 
-            if (Session["cc"] != null)
-            {
-                ViewBag.Message = Session["cc"];
-            }
-            string s = ViewBag.Message;
-            Guid ID = new Guid(s);
-            ViewBag.Message = Session["WarehouseLogID"];
+            Guid ID = new Guid(Session["cc"].ToString());
+          
             wl.Name= Session["username"].ToString();
-            s = ViewBag.Message;
-            Guid ID2 = new Guid(s);
+           
+            Guid ID2 = new Guid(Session["WarehouseLogID"].ToString());
             ObservableCollection < Warehouse > ow= SqlQuery.WarehouseQuery(ID);
             ObservableCollection < WarehouseLog > owl= SqlQuery.WarehouseLogQueryByID(ID2);
             GetData.SaveWarehouseLogModification(ow[0], owl[0], wl);

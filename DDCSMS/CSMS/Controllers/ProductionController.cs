@@ -17,12 +17,9 @@ namespace WebApplication4.Controllers
         {
             try { 
                 ViewBag.p = "";
-                if (Session["cc"] != null)
                 {
-                    ViewBag.Message = Session["cc"];
-                }
             string s = ViewBag.Message;
-            Guid ID = new Guid(s);
+            Guid ID = new Guid(Session["cc"].ToString());
             ObservableCollection<ContractNameT> ct = SqlQuery.ContractVQuery(ID);
             ObservableCollection < Productioner >pt = SqlQuery.ProductionerQuery(ID);
             ObservableCollection < ProductionerLog >  ptl= SqlQuery.ProductionerLogQuery(ID);
@@ -47,12 +44,8 @@ namespace WebApplication4.Controllers
         {
             try {
                
-                if (Session["cc"] != null)
-                {
-                    ViewBag.Message = Session["cc"];
-                }
-            string s = ViewBag.Message;
-            Guid ID = new Guid(s);
+              
+            Guid ID = new Guid(Session["cc"].ToString());
             ObservableCollection<ContractNameT> ct = SqlQuery.ContractVQuery(ID);
             ObservableCollection<Productioner> pt = SqlQuery.ProductionerQuery(ID);
             ObservableCollection<ProductionerLog> ptl = SqlQuery.ProductionerLogQuery(ID);
@@ -72,21 +65,15 @@ namespace WebApplication4.Controllers
         {
             try {
                 ViewBag.p = "";
-                if (Session["cc"] != null)
-                {
-                    ViewBag.Message = Session["cc"];
-                }
-            string s = ViewBag.Message;
-            Guid ID = new Guid(s);
+              
+            Guid ID = new Guid(Session["cc"].ToString());
             ObservableCollection<Productioner> pt = SqlQuery.ProductionerQuery(ID);
             ObservableCollection<Warehouse> ow = SqlQuery.WarehouseQuery(ID);
             ptl.ID = Guid.NewGuid();
             ptl.ContractID = ID;
             ptl.DepartmentID = pt[0].ID;
-            
             ptl.LogDate= DateTime.Now.ToString();
-            ViewBag.Message = Session["username"];
-            ptl.Name = ViewBag.Message;
+            ptl.Name = Session["username"].ToString();
             GetData.ProductionerGet(ptl, pt, ow);
             return RedirectToAction("Production");
             }
@@ -99,15 +86,10 @@ namespace WebApplication4.Controllers
         {
             try {
                 ViewBag.p = "";
-                if (Session["cc"] != null)
-                {
-                    ViewBag.Message = Session["cc"];
-                }
                 string s = ViewBag.Message;
-                Guid ID = new Guid(s);
+                Guid ID = new Guid(Session["cc"].ToString());
                 string ss = Request["ID"];
                 int a = Convert.ToInt16(ss);
-
                 ObservableCollection<ProductionerLog> osl = SqlQuery.ProductionerLogQueryLz(a, ID);
                 string result = JsonTools.ObjectToJson(osl);
                 return Content(result);
@@ -120,20 +102,16 @@ namespace WebApplication4.Controllers
         public ActionResult Productionmodification()
         {
             try { 
-                if (Session["cc"] != null)
-                {
-                    ViewBag.Message = Session["cc"];
-                }
-                string s = ViewBag.Message;
-                Guid ID = new Guid(s);
+              
+                Guid ID = new Guid(Session["cc"].ToString());
                 ObservableCollection<Productioner> op = SqlQuery.ProductionerQuery(ID);
                 ViewBag.logName = Request["logName"];
                 ViewBag.log = Request["log"];
                 ViewBag.date = Request["date"];
                 Session["ProductionID"] = Request["ID"];
-            ViewBag.ID=Request["ID"];
-            string aa = Request["ID"];
-            ViewBag.Name = Request["Name"];
+                ViewBag.ID=Request["ID"];
+               string aa = Request["ID"];
+                ViewBag.Name = Request["Name"];
                 ViewBag.logDate = Request["logDate"];
                 ViewBag.s1 = op[0].NoTotalProduct+Convert.ToDouble(Request["log"]);
                 return View();
@@ -147,18 +125,10 @@ namespace WebApplication4.Controllers
         {
 
             try { 
-                if (Session["cc"] != null)
-                {
-                    ViewBag.Message = Session["cc"];
-                }
-                string s = ViewBag.Message;
-                Guid ID = new Guid(s);
-
-            pl.Name= Session["username"].ToString();
-
-            s = Session["ProductionID"].ToString();
-                Guid ID2 = new Guid(s);
-
+               
+                Guid ID = new Guid(Session["cc"].ToString());
+                pl.Name= Session["username"].ToString();
+                Guid ID2 = new Guid(Session["ProductionID"].ToString());
                 ObservableCollection<ProductionerLog>opl= SqlQuery.ProductionerLogQueryByID(ID2);
                 ObservableCollection<Productioner> op = SqlQuery.ProductionerQuery(ID);
                 ObservableCollection<Warehouse> ow = SqlQuery.WarehouseQuery(ID);

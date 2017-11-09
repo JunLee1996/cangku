@@ -19,13 +19,7 @@ namespace WebApplication4.Controllers
             try
             {
                 ViewBag.p = "";
-                if (Session["cc"] != null)
-                {
-                    ViewBag.p = "";
-                    ViewBag.Message = Session["cc"];
-                }
-                string s = ViewBag.Message;
-                Guid ID = new Guid(s);
+                Guid ID = new Guid(Session["cc"].ToString());
                 string ss = Request["ID"];
                 int a = Convert.ToInt16(ss);
 
@@ -44,12 +38,7 @@ namespace WebApplication4.Controllers
             try
             {
                 ViewBag.p = "";
-                if (Session["cc"] != null)
-                {
-                    ViewBag.Message = Session["cc"];
-                }
-                string s = ViewBag.Message;
-                Guid ID = new Guid(s);
+                Guid ID = new Guid(Session["cc"].ToString());
                 ObservableCollection<Sales> os = SqlQuery.SalesQuery(ID);
                 Sales sa = os[0];
                 ObservableCollection<SalesLog> osl = SqlQuery.SalesLogQuery(ID);
@@ -79,13 +68,7 @@ namespace WebApplication4.Controllers
             try
             {
                 ViewBag.p = "";
-                if (Session["cc"] != null)
-                {
-                }
-                ViewBag.Message = Session["cc"];
-                string s = ViewBag.Message;
-
-                Guid ID = new Guid(s);
+                Guid ID = new Guid(Session["cc"].ToString());
                 sl.ContractID = ID;
                 sl.ID = Guid.NewGuid();
                 sl.LogDate = DateTime.Now.ToString();
@@ -108,12 +91,8 @@ namespace WebApplication4.Controllers
             try
             {
                 ViewBag.p = "";
-                if (Session["cc"] != null)
-                {
-                    ViewBag.Message = Session["cc"];
-                }
-                string s = ViewBag.Message;
-                Guid ID = new Guid(s);
+                
+                Guid ID = new Guid(Session["cc"].ToString());
                 ObservableCollection<Contract_Data> cd = SqlQuery.ContractDataQuery(ID);
                 cd = Orderby.paiXu(cd);
                 ObservableCollection<Sales> os = SqlQuery.SalesQuery(ID);
@@ -132,12 +111,7 @@ namespace WebApplication4.Controllers
             try
             {
                 ViewBag.p = "";
-                if (Session["cc"] != null)
-                {
-                    ViewBag.Message = Session["cc"];
-                }
-                string s = ViewBag.Message;
-                Guid ID = new Guid(s);
+                Guid ID = new Guid(Session["cc"].ToString());
                 ObservableCollection<Contract_Data> cd = SqlQuery.ContractDataQuery(ID);
                 ViewBag.Contract_DataJson = JsonTools.ObjectToJson(cd);
                 ViewBag.logName = Request["logName"];

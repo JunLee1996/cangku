@@ -145,7 +145,7 @@ function fullServiceData(Accountants) {
         if (Accountants.AffirmIncomeDate.indexOf(" 0:00:00") != -1) {
             as = Accountants.AffirmIncomeDate.replace(' 0:00:00', '').replace('/', '-').replace('/', '-');
         }
-        if (Accountants.AffirmIncomeDate.indexOf(' 12:00:00 AM') != -1) {
+        if (Accountants.AffirmIncomeDate.indexOf(" 12:00:00 AM") != -1) {
             as = Accountants.AffirmIncomeDate.replace(' 12:00:00 AM', '').replace('/', '-').replace('/', '-');
         }
     }

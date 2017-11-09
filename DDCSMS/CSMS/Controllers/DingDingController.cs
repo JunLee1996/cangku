@@ -45,8 +45,7 @@ namespace WebApplication4.Controllers
             try
             {
                 string CODE = Request["code"];
-                ViewBag.Message = Session["Token"];
-                string s = ViewBag.Message;
+                string s = Session["Token"].ToString();
                 string TokenUrl = "https://oapi.dingtalk.com/user/getuserinfo";
                 string apiurl = $"{TokenUrl}?access_token={s}&code={CODE}";
                 WebRequest request = WebRequest.Create(@apiurl);
@@ -124,10 +123,7 @@ namespace WebApplication4.Controllers
         }
         public ActionResult GetSign()
         {
-
-
-            ViewBag.Message = Session["Token"];
-            string s = ViewBag.Message;
+            string s = Session["Token"].ToString();
             string TokenUrl = "https://oapi.dingtalk.com/department/list";
             string apiurl = $"{TokenUrl}?access_token={s}";
             WebRequest request = WebRequest.Create(@apiurl);
@@ -143,8 +139,8 @@ namespace WebApplication4.Controllers
         {
 
 
-            ViewBag.Message = Session["Token"];
-            string s = ViewBag.Message;
+           
+            string s = Session["Token"].ToString();
             string TokenUrl = "https://oapi.dingtalk.com/message/send_to_conversation";
             string apiurl = $"{TokenUrl}?access_token={s}";
             WebRequest request = WebRequest.Create(@apiurl);
@@ -161,14 +157,14 @@ namespace WebApplication4.Controllers
         public ActionResult DeleteCache()
         {
            
-            if (HttpContext.Cache["Token"] != null)
-            {
-                HttpContext.Cache.Remove("Token");
+            //if (HttpContext.Cache["Token"] != null)
+            //{
+            //    HttpContext.Cache.Remove("Token");
                 
-            }if (HttpContext.Cache["ticket"] != null)
-                {
-                HttpContext.Cache.Remove("ticket");
-            }
+            //}if (HttpContext.Cache["ticket"] != null)
+            //    {
+            //    HttpContext.Cache.Remove("ticket");
+            //}
             return Content(JsonTools.ObjectToJson(""));
 
         }

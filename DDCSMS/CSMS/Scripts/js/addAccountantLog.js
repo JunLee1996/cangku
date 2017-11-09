@@ -39,8 +39,14 @@ function fillService(serviceArr) {
 }
 function DoLog(Accountant) {
     var as
-    if (Accountant.AffirmIncomeDate == null) {
-        as = ""
+    if (Accountant.AffirmIncomeDate == null || Accountants.AffirmIncomeDate=="") {
+      
+        $('.datepicker').pickadate({
+            format: 'yyyy-mm-dd'
+        });
+        as= new Date().Format("yyyy-MM-dd");
+     
+       
     } else {
         if (Accountant.AffirmIncomeDate.indexOf(" 0:00:00") != -1) {
             as = Accountant.AffirmIncomeDate.replace(' 0:00:00', '').replace('/', '-').replace('/', '-');

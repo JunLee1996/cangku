@@ -18,12 +18,7 @@ namespace WebApplication4.Controllers
         {
             try {
                 ViewBag.p = "";
-                if (Session["cc"] != null)
-            {
-                ViewBag.Message = Session["cc"];
-            }
-            string s = ViewBag.Message;
-            Guid ID = new Guid(s);
+            Guid ID = new Guid(Session["cc"].ToString());
             ObservableCollection<string> name=SqlQuery.ContractVQueryName(ID);
             ObservableCollection < Accountant > oa = SqlQuery.AccountantQuery(ID);
             ObservableCollection < Invoicing > oin= SqlQuery.Invoicing(ID);
@@ -43,12 +38,8 @@ namespace WebApplication4.Controllers
         public ActionResult AddInvoicingLog()
         {
             try { 
-            if (Session["cc"] != null)
-            {
-                ViewBag.Message = Session["cc"];
-            }
-            string s = ViewBag.Message;
-            Guid ID = new Guid(s);
+         
+            Guid ID = new Guid(Session["cc"].ToString());
             ObservableCollection<Contract_Data> ocd =SqlQuery.ContractDataQuery(ID);
             ocd = Orderby.paiXu(ocd);
             ViewBag.Contract_DataJson = JsonTools.ObjectToJson(ocd);
@@ -65,13 +56,10 @@ namespace WebApplication4.Controllers
         }
         public ActionResult SaveInvoicingLog( Invoicing inc)
         {
-           
-                if (Session["cc"] != null)
-            {
-                ViewBag.Message = Session["cc"];
-            }
+
+            try { 
             string s = ViewBag.Message;
-            Guid ID = new Guid(s);
+            Guid ID = new Guid(Session["cc"].ToString());
            string sid= Request["ServiceID"];
             Guid ID2 = new Guid(sid);
             inc.ID = Guid.NewGuid();
@@ -79,7 +67,6 @@ namespace WebApplication4.Controllers
             inc.Contract_ID = ID;
             ObservableCollection<Contract_Data> odd= SqlQuery.Contract_DataByIDQuery(ID2);
             inc.Service = odd[0].Service;
-
             inc.Name = Session["username"].ToString();
             SqlQuery.insert(inc);
             ObservableCollection<Accountant> oc = SqlQuery.AccountantByServiceQuery(ID2);
@@ -88,17 +75,19 @@ namespace WebApplication4.Controllers
             oc[0].InvoicingDate = inc.InvoicingDate;
             SqlQuery.updataAcc(oc[0]);
             return RedirectToAction("Invoicing");
-           
+        }
+            catch (Exception)
+            {
+                return RedirectToAction("noPremission", "FirstPage", new { ex = "操作异常或超时已退回首页请刷新重试" });
+            }
+      
         }
         public ActionResult InvoicingLogAjax(Invoicing inc)
         {
             try { 
-            if (Session["cc"] != null)
-            {
-                ViewBag.Message = Session["cc"];
-            }
+           
             string s = ViewBag.Message;
-            Guid ID = new Guid(s);
+            Guid ID = new Guid(Session["cc"].ToString());
             string ss = Request["ID"];
             int a = Convert.ToInt16(ss);
             ObservableCollection<Invoicing> oin = SqlQuery.Invoicing(ID,a);
@@ -112,12 +101,8 @@ namespace WebApplication4.Controllers
         }
         public ActionResult InvoicingLogModification() {
             try { 
-            if (Session["cc"] != null)
-            {
-                ViewBag.Message = Session["cc"];
-            }
-            string s = ViewBag.Message;
-            Guid ID = new Guid(s);
+          
+            Guid ID = new Guid(Session["cc"].ToString());
             ObservableCollection<Contract_Data> cd = SqlQuery.ContractDataQuery(ID);
             ViewBag.Contract_DataJson = JsonTools.ObjectToJson(cd);
             string InvoicingID = Request["ID"];
@@ -139,15 +124,11 @@ namespace WebApplication4.Controllers
         public ActionResult SaveInvoicingLogModification(Invoicing inv)
         {
             try { 
-            if (Session["cc"] != null)
-            {
-                ViewBag.Message = Session["cc"];
-            }
+
             inv.Name= Session["username"].ToString();
-            string s = ViewBag.Message;
+            string s = Session["cc"].ToString();
             Guid ID = new Guid(s);
-            ViewBag.Message = Session["InvoicingID"];
-            s = ViewBag.Message;
+            s = Session["InvoicingID"].ToString();
             Guid ID2 = new Guid(s);
             ObservableCollection<Contract_Data>oc= SqlQuery.Contract_DataByIDQuery(inv.ServiceID);
             inv.Service = oc[0].Service;

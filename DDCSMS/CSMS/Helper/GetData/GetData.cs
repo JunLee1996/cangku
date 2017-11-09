@@ -104,6 +104,9 @@ namespace ContractStatementManagementSystem
             a.AffirmIncomeDate = al.AffirmIncomeDate;
             SqlQuery.updata(a);
             bool flag = false;
+            if (al.LogName != null) {
+                flag = true;
+            }
             if (ab.SubAffirmIncomeAmount != Convert.ToDecimal(al.AffirmIncomeAmount)) {
                 flag = true;
                 al.AffirmIncomeAmount = " 由 " + ab.SubAffirmIncomeAmount + " 更改为 " + Convert.ToDecimal(al.AffirmIncomeAmount);
@@ -157,9 +160,10 @@ namespace ContractStatementManagementSystem
             if (ab.AffirmIncomeDate != null) { 
                 if(ab.AffirmIncomeDate.Contains(" 0:00:00"))
               sa = ab.AffirmIncomeDate.Replace(" 0:00:00", "").Replace("/", "-");
-            }
+            
             if (ab.AffirmIncomeDate.Contains(" 12:00:00 AM")) {
                 sa= ab.AffirmIncomeDate.Replace(" 12:00:00 AM", "").Replace("/", "-");
+            }
             }
             if (sa != al.AffirmIncomeDate) {
                 al.AffirmIncomeDate = " 由 " + sa + " 更改为 " + al.AffirmIncomeDate;
